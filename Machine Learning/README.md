@@ -16,35 +16,34 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
 ## Methodology:
 
 
-
-
-
 ### <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
 
-                     ┌────────────────────────┐
-                     │  Incoming Transaction  │
-                     └───────────┬────────────┘
-                                 │
-                                 ▼
-                     ┌────────────────────────┐
-                     │  Feature Engineering   │
-                     │ (24 Features Extracted)│
-                     └───────────┬────────────┘
-                                 │
-                                 ▼
-                     ┌────────────────────────┐
-                     │  ML Inference Engine   │
-                     │ (Random Forest Model)  │
-                     └───────────┬────────────┘
-                                 │
-         ┌───────────────────────┼───────────────────────┐
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Risk < 50%    │    │ 50% ≤ Risk < 85% │    │   Risk ≥ 85%    │
-├─────────────────┤    ├──────────────────┤    ├─────────────────┤
-│    Low Risk     │    │   Medium Risk    │    │    High Risk    │
-│   (Approved)    │    │  (OTP / Flagged) │    │ (Hold / Review) │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+```text
+              ┌────────────────────────┐
+              │  Incoming Transaction  │
+              └───────────┬────────────┘
+                          │
+                          ▼
+              ┌────────────────────────┐
+              │  Feature Engineering   │
+              │ (24 Features Extracted)│
+              └───────────┬────────────┘
+                          │
+                          ▼
+              ┌────────────────────────┐
+              │  ML Inference Engine   │
+              │ (Random Forest Model)  │
+              └───────────┬────────────┘
+                          │
+        ┌─────────────────┼─────────────────┐
+        ▼                 ▼                 ▼
+ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
+ │  Risk < 50%   │ │ 50% ≤ Risk    │ │ Risk ≥ 85%    │
+ │               │ │       < 85%   │ │               │
+ ├───────────────┤ ├───────────────┤ ├───────────────┤
+ │   Low Risk    │ │  Medium Risk  │ │   High Risk   │
+ │  (Approved)   │ │(OTP / Flagged)│ │(Hold / Review)│
+ └───────────────┘ └───────────────┘ └───────────────┘
          
 
 
@@ -107,16 +106,16 @@ def predict_fraud(transaction_data):
     }
 
 
- ###  Risk Handling Protocol 
+### Risk Handling Protocol
 
-## Risk Assessment Levels
+### Risk Handling Protocol
 
 Risk Level	Score Range	Automated Protocol
 🟢 Low Risk	0.0% – 49.9%	Instantly process and log transaction.
 🟡 Medium Risk	50.0% – 84.9%	Flag transaction; trigger Multi-Factor Authentication (MFA / OTP).
 🔴 High Risk	85.0% – 100.0%	Block/Hold funds; send alert to admin dashboard for manual review.
 
-**## Protocol Action Summary**
+## Protocol Action Summary
 
 | Step / Decision Node | Description | Action Details |
 | :--- | :--- | :--- |
