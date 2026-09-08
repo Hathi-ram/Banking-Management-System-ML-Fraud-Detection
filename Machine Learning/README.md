@@ -86,6 +86,7 @@ python ml/train_model.py
 ## Real-Time Inference (Flask Integration)The model is automatically invoked within the Flask transaction processing routes (app.py):Pythonimport joblib
 
 ## Load trained model & scaler
+
 model = joblib.load('ml/model.pkl')
 scaler = joblib.load('ml/scaler.pkl')
 
@@ -100,6 +101,7 @@ def predict_fraud(transaction_data):
         "risk_score": round(probability * 100, 2),
         "prediction": "Suspicious" if is_suspicious else "Normal",
         "risk_status": "High Risk" if probability >= 0.85 else ("Medium Risk" if is_suspicious else "Low Risk")
+        
     }
 
 
@@ -108,8 +110,11 @@ def predict_fraud(transaction_data):
 ### Risk Handling Protocol
 
 Risk Level	Score Range	Automated Protocol
+
 🟢 Low Risk	0.0% – 49.9%	Instantly process and log transaction.
+
 🟡 Medium Risk	50.0% – 84.9%	Flag transaction; trigger Multi-Factor Authentication (MFA / OTP).
+
 🔴 High Risk	85.0% – 100.0%	Block/Hold funds; send alert to admin dashboard for manual review.
 
 ## Protocol Action Summary
