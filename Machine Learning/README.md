@@ -87,17 +87,28 @@ python ml/train_model.py
 ## Load trained model & scaler
 
 model = joblib.load('ml/model.pkl')
+
 scaler = joblib.load('ml/scaler.pkl')
 
 def predict_fraud(transaction_data):
+
     features = extract_features(transaction_data) # Returns 24-feature vector
+    
     scaled_features = scaler.transform([features])
+    
     probability = model.predict_proba(scaled_features)[0][1] # Fraud Probability
+    
     is_suspicious = probability >= 0.55
+    
     return {
+    
         "risk_score": round(probability * 100, 2),
+        
         "prediction": "Suspicious" if is_suspicious else "Normal",
-        "risk_status": "High Risk" if probability >= 0.85 else ("Medium Risk" if is_suspicious else "Low Risk")}
+        
+        "risk_status": "High Risk" if probability >= 0.85 else ("Medium Risk" 
+      if 
+        is_suspicious else "Low Risk")}
 
 
 ### Risk Handling Protocol
