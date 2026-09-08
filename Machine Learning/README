@@ -64,7 +64,7 @@ The model extracts and evaluates 24 dynamic features per transaction:
 
 ---
 
-##  How to Run & Re-train
+###  How to Run & Re-train
 
 ### 1. Requirements
 Ensure your Python environment has the necessary ML packages installed:
