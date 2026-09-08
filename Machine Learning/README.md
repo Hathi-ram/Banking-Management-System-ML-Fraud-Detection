@@ -76,7 +76,7 @@ The model extracts and evaluates 24 dynamic features per transaction:
 
 ###  How to Run & Re-train
 
-### 1. Requirements
+### Requirements
 Ensure your Python environment has the necessary ML packages installed:
 ```bash
 pip install pandas numpy scikit-learn joblib
@@ -107,9 +107,9 @@ def predict_fraud(transaction_data):
     }
 
 
-** ## Risk Handling Protocol **
+ ###  Risk Handling Protocol 
 
-**## Risk Assessment Levels**
+## Risk Assessment Levels
 
 Risk Level	Score Range	Automated Protocol
 🟢 Low Risk	0.0% – 49.9%	Instantly process and log transaction.
@@ -118,11 +118,11 @@ Risk Level	Score Range	Automated Protocol
 
 **## Protocol Action Summary**
 
-```mermaid
-flowchart TD
-    A[Incoming Transaction] --> B["Feature Engineering<br/>(24 Features Extracted)"]
-    B --> C["ML Inference Engine<br/>(Random Forest Model)"]
-    
-    C --> D["Risk < 50%<br/><b>Low Risk</b><br/>(Approved)"]
-    C --> E["50% ≤ Risk < 85%<br/><b>Medium Risk</b><br/>(OTP / Flagged)"]
-    C --> F["Risk ≥ 85%<br/><b>High Risk</b><br/>(Hold / Review)"]
+| Step / Decision Node | Description | Action Details |
+| :--- | :--- | :--- |
+| **1. Input** | Incoming Transaction | Raw transaction payload received |
+| **2. Feature Extraction** | Feature Engineering | 24 core features extracted |
+| **3. Inference** | ML Inference Engine | Evaluated using Random Forest Model |
+| **4. Low Risk** | Risk < 50% | **Approved** (Instant processing) |
+| **5. Medium Risk** | 50% ≤ Risk < 85% | **OTP / Flagged** (Step-up auth) |
+| **6. High Risk** | Risk ≥ 85% | **Hold / Review** (Admin intervention) |
