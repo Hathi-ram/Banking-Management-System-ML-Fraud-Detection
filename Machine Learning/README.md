@@ -13,12 +13,12 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
 * **Classification Threshold:** `0.55` (configurable)
 * **Risk Categorization:** Low Risk, Medium Risk, High Risk
 
-### Methodology:
+## Methodology:
 
 
-### <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
+## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
 
-```text
+
               ┌────────────────────────┐
               │  Incoming Transaction  │
               └───────────┬────────────┘
@@ -47,8 +47,6 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
          
 
 
----
-
 ##  Performance & Metrics
 
 Model evaluation is conducted on real-time transaction data using standard classification metrics:
@@ -62,7 +60,6 @@ Model evaluation is conducted on real-time transaction data using standard class
 
 > **Note on Tuning:** The current threshold (`0.55`) emphasizes High Precision to minimize false alerts. Lowering the prediction threshold to `0.35 - 0.40` or implementing **SMOTE** re-sampling can significantly improve **Recall** for higher fraud capture rates.
 
----
 
 ## Feature Engineering (24 Key Drivers)
 
@@ -71,13 +68,13 @@ The model extracts and evaluates 24 dynamic features per transaction:
 * **Account Dynamics:** Sender/Receiver account balances, historical transaction frequency, average transaction size, balance-to-amount ratios.
 * **Velocity Metrics:** Transaction frequency over short time windows (e.g., 1 hour / 24 hours), sudden balance depletion indicators.
 
----
+
 
 ###  How to Run & Re-train
 
 ### Requirements
 Ensure your Python environment has the necessary ML packages installed:
-```bash
+bash
 pip install pandas numpy scikit-learn joblib
 
 ## Model Training & Export
