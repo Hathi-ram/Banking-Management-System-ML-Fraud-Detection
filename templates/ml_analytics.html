@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ML Analytics | Banking Management System</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #111827;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            color: #d1d5db !important;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-description {
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 30px 0 15px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .stat-description {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .model-card {
+            background: white;
+            border-radius: 12px;
+            padding: 22px;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+        }
+
+        .model-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .model-item:last-child {
+            border-bottom: none;
+        }
+
+        .model-label {
+            color: #6b7280;
+        }
+
+        .model-value {
+            font-weight: 600;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-header h5 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        table {
+            margin-bottom: 0 !important;
+        }
+
+        th {
+            background: #f9fafb !important;
+            color: #4b5563 !important;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        td {
+            vertical-align: middle;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .badge-normal {
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-suspicious {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-low {
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-medium {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-high {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+            height: 100%;
+        }
+
+        .metric-value {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .metric-label {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .empty-state {
+            padding: 35px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding: 25px;
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            font-size: 13px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container-fluid px-4">
+
+        <a class="navbar-brand"
+           href="/dashboard">
+
+            Banking Management System
+
+        </a>
+
+        <div class="navbar-nav ms-auto">
+
+            <a class="nav-link"
+               href="/dashboard">
+
+                Dashboard
+
+            </a>
+
+            <a class="nav-link"
+               href="/transactions">
+
+                Transactions
+
+            </a>
+
+            <a class="nav-link active"
+               href="/ml-analytics">
+
+                ML Analytics
+
+            </a>
+
+            <a class="nav-link"
+               href="/logout">
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="container-fluid px-4 py-4">
+
+
+<!-- ======================================================
+     PAGE HEADER
+====================================================== -->
+
+<div class="page-header">
+
+    <div class="page-title">
+
+        ML-Based Transaction Fraud Detection
+
+    </div>
+
+    <p class="page-description">
+
+        Monitor machine learning predictions, transaction risk,
+        suspicious activity and model performance.
+
+    </p>
+
+</div>
+
+
+<!-- ======================================================
+     MODEL OVERVIEW
+====================================================== -->
+
+<div class="section-title">
+
+    ML Model Overview
+
+</div>
+
+
+<div class="row g-4">
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="model-card">
+
+            <div class="model-item">
+
+                <span class="model-label">
+                    Model
+                </span>
+
+                <span class="model-value">
+                    {{ model_name }}
+                </span>
+
+            </div>
+
+            <div class="model-item">
+
+                <span class="model-label">
+                    Version
+                </span>
+
+                <span class="model-value">
+                    {{ model_version }}
+                </span>
+
+            </div>
+
+            <div class="model-item">
+
+                <span class="model-label">
+                    Features
+                </span>
+
+                <span class="model-value">
+                    {{ total_features }}
+                </span>
+
+            </div>
+
+            <div class="model-item">
+
+                <span class="model-label">
+                    Threshold
+                </span>
+
+                <span class="model-value">
+                    {{ "{:.2f}".format(detection_threshold) }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-9 col-md-6">
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Transactions Analyzed
+                    </div>
+
+                    <div class="stat-value">
+                        {{ total_analyzed }}
+                    </div>
+
+                    <div class="stat-description">
+                        Transactions processed by ML
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Normal Transactions
+                    </div>
+
+                    <div class="stat-value">
+                        {{ normal_transactions }}
+                    </div>
+
+                    <div class="stat-description">
+                        ML prediction: Normal
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        Suspicious Transactions
+                    </div>
+
+                    <div class="stat-value">
+                        {{ suspicious_transactions }}
+                    </div>
+
+                    <div class="stat-description">
+                        ML prediction: Suspicious
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="stat-card">
+
+                    <div class="stat-label">
+                        High Risk
+                    </div>
+
+                    <div class="stat-value">
+                        {{ high_risk_transactions_count }}
+                    </div>
+
+                    <div class="stat-description">
+                        Risk status: High
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     RISK DISTRIBUTION
+====================================================== -->
+
+<div class="section-title">
+
+    Risk Distribution
+
+</div>
+
+
+<div class="row g-4">
+
+    <div class="col-md-4">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ low_risk_transactions }}
+
+            </div>
+
+            <div class="metric-label">
+
+                Low Risk Transactions
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ medium_risk_transactions }}
+
+            </div>
+
+            <div class="metric-label">
+
+                Medium Risk Transactions
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ high_risk_transactions_count }}
+
+            </div>
+
+            <div class="metric-label">
+
+                High Risk Transactions
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     MODEL PERFORMANCE
+====================================================== -->
+
+<div class="section-title">
+
+    Model Performance
+
+</div>
+
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ "{:.1f}".format(accuracy * 100) }}%
+
+            </div>
+
+            <div class="metric-label">
+
+                Accuracy
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ "{:.1f}".format(precision * 100) }}%
+
+            </div>
+
+            <div class="metric-label">
+
+                Precision
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ "{:.1f}".format(recall * 100) }}%
+
+            </div>
+
+            <div class="metric-label">
+
+                Recall
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="metric-card">
+
+            <div class="metric-value">
+
+                {{ "{:.1f}".format(f1_score * 100) }}%
+
+            </div>
+
+            <div class="metric-label">
+
+                F1 Score
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     HIGH RISK TRANSACTIONS
+====================================================== -->
+
+<div class="section-title">
+
+    High-Risk Transactions
+
+</div>
+
+
+<div class="table-card">
+
+    <div class="table-header">
+
+        <h5>
+            Transactions requiring attention
+        </h5>
+
+    </div>
+
+
+    {% if high_risk_list %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Transaction</th>
+
+                    <th>Account</th>
+
+                    <th>Type</th>
+
+                    <th>Amount</th>
+
+                    <th>Risk Score</th>
+
+                    <th>Risk Status</th>
+
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for t in high_risk_list %}
+
+                <tr>
+
+                    <td>
+                        {{ t.transaction_reference }}
+                    </td>
+
+                    <td>
+                        {{ t.account_number or '—' }}
+                    </td>
+
+                    <td>
+                        {{ t.transaction_type }}
+                    </td>
+
+                    <td>
+                        ₹{{ "{:,.2f}".format(t.amount|float) }}
+                    </td>
+
+                    <td>
+
+                        {% if t.ml_risk_score is not none %}
+
+                            {{ "{:.2f}".format(
+                                (t.ml_risk_score|float) * 100
+                            ) }}%
+
+                        {% else %}
+
+                            —
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <span class="badge-high">
+
+                            High Risk
+
+                        </span>
+
+                    </td>
+
+                    <td>
+                        {{ t.transaction_date }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            No high-risk transactions detected.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ======================================================
+     SUSPICIOUS TRANSACTIONS
+====================================================== -->
+
+<div class="section-title">
+
+    Suspicious Transactions
+
+</div>
+
+
+<div class="table-card">
+
+    <div class="table-header">
+
+        <h5>
+            ML-detected suspicious activity
+        </h5>
+
+    </div>
+
+
+    {% if suspicious_list %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Transaction</th>
+
+                    <th>Account</th>
+
+                    <th>Type</th>
+
+                    <th>Amount</th>
+
+                    <th>ML Prediction</th>
+
+                    <th>Risk Score</th>
+
+                    <th>Risk Status</th>
+
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for t in suspicious_list %}
+
+                <tr>
+
+                    <td>
+                        {{ t.transaction_reference }}
+                    </td>
+
+                    <td>
+                        {{ t.account_number or '—' }}
+                    </td>
+
+                    <td>
+                        {{ t.transaction_type }}
+                    </td>
+
+                    <td>
+                        ₹{{ "{:,.2f}".format(t.amount|float) }}
+                    </td>
+
+                    <td>
+
+                        <span class="badge-suspicious">
+
+                            Suspicious
+
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        {% if t.ml_risk_score is not none %}
+
+                            {{ "{:.2f}".format(
+                                (t.ml_risk_score|float) * 100
+                            ) }}%
+
+                        {% else %}
+
+                            —
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if t.ml_risk_level == "High" %}
+
+                            <span class="badge-high">
+                                High Risk
+                            </span>
+
+                        {% elif t.ml_risk_level == "Medium" %}
+
+                            <span class="badge-medium">
+                                Medium Risk
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge-low">
+                                Low Risk
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {{ t.transaction_date }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            No suspicious transactions detected.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ======================================================
+     RECENT ML ANALYSIS
+====================================================== -->
+
+<div class="section-title">
+
+    Recent ML Analysis
+
+</div>
+
+
+<div class="table-card">
+
+    <div class="table-header">
+
+        <h5>
+            Latest transactions analyzed by the model
+        </h5>
+
+    </div>
+
+
+    {% if recent_ml_transactions %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Transaction</th>
+
+                    <th>Type</th>
+
+                    <th>Amount</th>
+
+                    <th>Prediction</th>
+
+                    <th>Risk Score</th>
+
+                    <th>Risk Status</th>
+
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for t in recent_ml_transactions %}
+
+                <tr>
+
+                    <td>
+                        {{ t.transaction_reference }}
+                    </td>
+
+                    <td>
+                        {{ t.transaction_type }}
+                    </td>
+
+                    <td>
+                        ₹{{ "{:,.2f}".format(t.amount|float) }}
+                    </td>
+
+                    <td>
+
+                        {% if t.ml_prediction == 1 %}
+
+                            <span class="badge-suspicious">
+                                Suspicious
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge-normal">
+                                Normal
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if t.ml_risk_score is not none %}
+
+                            {{ "{:.2f}".format(
+                                (t.ml_risk_score|float) * 100
+                            ) }}%
+
+                        {% else %}
+
+                            —
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if t.ml_risk_level == "High" %}
+
+                            <span class="badge-high">
+                                High Risk
+                            </span>
+
+                        {% elif t.ml_risk_level == "Medium" %}
+
+                            <span class="badge-medium">
+                                Medium Risk
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge-low">
+                                Low Risk
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {{ t.transaction_date }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            No ML-analyzed transactions available.
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+</div>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<div class="footer">
+
+    <div>
+        Developed by Vislavath Hathiram
+    </div>
+
+    <div class="mt-1">
+        Flask • Python • MySQL • Machine Learning • Bootstrap 5
+    </div>
+
+    <div class="mt-1">
+        © 2026 Banking Management System with ML-Based Fraud Detection
+    </div>
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
+</html>

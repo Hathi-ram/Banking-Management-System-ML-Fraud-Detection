@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Customers</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>👤 Customer List</h1>
+
+    <br>
+
+    <!-- ============================= -->
+    <!-- Search Customer -->
+    <!-- ============================= -->
+
+    <form method="GET" action="/customers">
+
+        <table width="100%">
+
+            <tr>
+
+                <td width="80%">
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="🔍 Search by Name, Phone, Aadhaar, PAN, Email"
+                        value="{{ search }}"
+                        style="width:100%;padding:10px;font-size:16px;">
+
+                </td>
+
+                <td>
+
+                    <button type="submit">
+
+                        🔍 Search
+
+                    </button>
+
+                </td>
+
+                <td>
+
+                    <a href="/customers">
+
+                        <button type="button">
+
+                            🔄 Reset
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </form>
+
+    <br>
+
+    <a href="/add_customer">
+
+        <button>
+
+            ➕ Add Customer
+
+        </button>
+
+    </a>
+
+    <br><br>
+
+    <!-- ============================= -->
+    <!-- Customer Table -->
+    <!-- ============================= -->
+
+    <table border="1" width="100%" cellpadding="10">
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Name</th>
+
+            <th>Email</th>
+
+            <th>Phone</th>
+
+            <th>Action</th>
+
+        </tr>
+
+        {% if customers %}
+
+            {% for customer in customers %}
+
+            <tr>
+
+                <td>{{ customer.customer_id }}</td>
+
+                <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+
+                <td>{{ customer.email }}</td>
+
+                <td>{{ customer.phone }}</td>
+
+                <td>
+
+                    <a href="/edit_customer/{{ customer.customer_id }}">
+
+                        <button>
+
+                            ✏ Edit
+
+                        </button>
+
+                    </a>
+
+                    <a href="/delete_customer/{{ customer.customer_id }}"
+                       onclick="return confirm('Delete this customer?');">
+
+                        <button style="background:red;color:white;">
+
+                            🗑 Delete
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="5" style="text-align:center;color:red;">
+
+                    ❌ No customer found.
+
+                </td>
+
+            </tr>
+
+        {% endif %}
+
+    </table>
+
+    <br>
+
+    <!-- ============================= -->
+    <!-- Pagination -->
+    <!-- ============================= -->
+
+    <div style="text-align:center; margin-top:20px;">
+
+        {% if page > 1 %}
+
+            <a href="/customers?page={{ page-1 }}&search={{ search }}">
+
+                <button>
+
+                    ⬅ Previous
+
+                </button>
+
+            </a>
+
+        {% endif %}
+
+        <span style="padding:15px; font-weight:bold;">
+
+            Page {{ page }} of {{ total_pages }}
+
+        </span>
+
+        {% if page < total_pages %}
+
+            <a href="/customers?page={{ page+1 }}&search={{ search }}">
+
+                <button>
+
+                    Next ➡
+
+                </button>
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <a href="/dashboard">
+
+        <button>
+
+            🏠 Dashboard
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

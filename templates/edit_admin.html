@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Admin Profile</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>✏️ Edit Admin Profile</h1>
+
+    <br>
+
+    {% if admin %}
+
+    <form method="POST" action="/edit_admin">
+
+        <table width="100%" cellpadding="10">
+
+            <tr>
+                <td width="30%">
+                    <label>Admin ID</label>
+                </td>
+
+                <td>
+                    <input
+                        type="text"
+                        value="{{ admin.admin_id }}"
+                        readonly
+                        style="width:100%;padding:10px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Username</label>
+                </td>
+
+                <td>
+                    <input
+                        type="text"
+                        name="username"
+                        value="{{ admin.username }}"
+                        required
+                        style="width:100%;padding:10px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Password</label>
+                </td>
+
+                <td>
+                    <input
+                        type="password"
+                        name="password"
+                        value="{{ admin.password }}"
+                        required
+                        style="width:100%;padding:10px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Full Name</label>
+                </td>
+
+                <td>
+                    <input
+                        type="text"
+                        name="full_name"
+                        value="{{ admin.full_name or '' }}"
+                        style="width:100%;padding:10px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Email</label>
+                </td>
+
+                <td>
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ admin.email or '' }}"
+                        style="width:100%;padding:10px;">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>Phone</label>
+                </td>
+
+                <td>
+                    <input
+                        type="text"
+                        name="phone"
+                        value="{{ admin.phone or '' }}"
+                        maxlength="15"
+                        style="width:100%;padding:10px;">
+                </td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <button type="submit">
+
+            💾 Save Changes
+
+        </button>
+
+        <a href="/admin">
+
+            <button type="button">
+
+                ❌ Cancel
+
+            </button>
+
+        </a>
+
+    </form>
+
+    {% else %}
+
+        <h3 style="color:red;text-align:center;">
+
+            ❌ Admin Record Not Found
+
+        </h3>
+
+        <br>
+
+        <a href="/dashboard">
+
+            <button>
+
+                🏠 Dashboard
+
+            </button>
+
+        </a>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

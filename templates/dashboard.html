@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Banking Management System with ML-Based Fraud Detection</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#eef2f7;
+            overflow-x:hidden;
+        }
+
+        /* =========================
+            Sidebar
+        ========================= */
+
+        .sidebar{
+
+            position:fixed;
+
+            top:0;
+            left:0;
+
+            width:250px;
+
+            height:100vh;
+
+            background:#182848;
+
+            color:white;
+
+            padding-top:20px;
+
+            box-shadow:4px 0 15px rgba(0,0,0,.2);
+
+            z-index:999;
+
+        }
+
+        .sidebar h3{
+
+            text-align:center;
+
+            margin-bottom:30px;
+
+            font-weight:700;
+
+        }
+
+        .sidebar a{
+
+            display:block;
+
+            color:white;
+
+            text-decoration:none;
+
+            padding:15px 25px;
+
+            transition:.3s;
+
+            font-size:16px;
+
+        }
+
+        .sidebar a:hover{
+
+            background:#274690;
+
+            padding-left:35px;
+
+        }
+
+        .sidebar i{
+
+            margin-right:10px;
+
+        }
+
+        /* =========================
+            Main Content
+        ========================= */
+
+        .main{
+
+            margin-left:250px;
+
+            padding:25px;
+
+        }
+
+        /* =========================
+            Top Navbar
+        ========================= */
+        .topbar{
+
+            background:#ffffff;
+
+            border-radius:18px;
+
+            padding:20px 30px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+            margin-bottom:30px;
+
+       }
+
+       .welcome h3{
+
+            margin:0;
+
+            font-weight:700;
+
+            color:#1b263b;
+
+       }
+
+       .welcome p{
+
+            margin-top:5px;
+
+            color:#6c757d;
+
+            font-size:15px;
+
+       }
+
+        .status{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:25px;
+      }  
+
+       .status .clock{
+
+           text-align:right;
+
+      }
+
+       .status .clock h6{
+
+         margin:0;
+
+         color:#1b263b;
+
+         font-weight:600;} 
+
+       .status .clock p{
+
+         margin:0;
+
+         color:#6c757d;
+
+         font-size:14px;}
+
+       .online{
+
+         color:#28a745;
+
+         font-weight:bold;}
+
+       .admin{
+
+         display:flex;
+
+         align-items:center;
+
+         gap:10px;}
+       .admin img{
+         width:45px;
+         height:45px;
+         border-radius:50%;}
+       .admin-name{
+
+        font-weight:600;
+
+         color:#1b263b;}
+        
+
+        /* =========================
+            Dashboard Header
+        ========================= */
+
+        .dashboard-banner{
+
+            background:linear-gradient(135deg,#4facfe,#00c6fb);
+
+            color:white;
+
+            border-radius:20px;
+
+            padding:35px;
+
+            margin-bottom:30px;
+
+            box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+        }
+
+        .dashboard-banner h2{
+
+            font-weight:700;
+
+        }
+
+        .dashboard-banner p{
+
+            margin-top:10px;
+
+            opacity:.95;
+
+            font-size:17px;
+
+        }
+
+        /* =========================
+            Cards
+        ========================= */
+
+        .dashboard-card{
+
+            border:none;
+
+            border-radius:18px;
+
+            box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+            transition:.3s;
+
+            overflow:hidden;
+
+        }
+
+        .dashboard-card:hover{
+
+            transform:translateY(-6px);
+
+        }
+
+        .icon-box{
+
+            width:65px;
+
+            height:65px;
+
+            border-radius:50%;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            color:white;
+
+            font-size:28px;
+
+        }
+
+        .blue{
+
+            background:#0d6efd;
+
+        }
+
+        .green{
+
+            background:#198754;
+
+        }
+
+        .orange{
+
+            background:#fd7e14;
+
+        }
+
+        .red{
+
+            background:#dc3545;
+
+        }
+
+        .purple{
+
+            background:#6f42c1;
+
+        }
+
+        .dark{
+
+            background:#212529;
+
+        }
+
+        .cyan{
+
+            background:#0dcaf0;
+
+        }
+
+        .pink{
+
+            background:#d63384;
+
+        }
+
+        .section-title{
+
+            font-size:24px;
+
+            font-weight:700;
+
+            margin:30px 0 20px;
+
+            color:#23395d;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ===========================
+        Sidebar
+============================ -->
+
+<div class="sidebar">
+
+    <h3>
+        🏦 Banking Management System 
+    </h3>
+
+    <a href="/dashboard">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+    </a>
+
+    <a href="/customers">
+        <i class="bi bi-people-fill"></i>
+        Customers
+    </a>
+
+    <a href="/accounts">
+        <i class="bi bi-bank2"></i>
+        Accounts
+    </a>
+
+    <a href="/transactions">
+        <i class="bi bi-cash-stack"></i>
+        Transactions
+    </a>
+
+    <a href="/ml-analytics">
+       <i class="bi bi-cpu text-warning fs-1"></i>
+        ML Analytics
+    </a>
+
+    <a href="/loans">
+        <i class="bi bi-currency-rupee"></i>
+        Loans
+    </a>
+
+    <a href="/cards">
+        <i class="bi bi-credit-card-2-front-fill"></i>
+        Cards
+    </a>
+
+    <a href="/employees">
+        <i class="bi bi-person-badge-fill"></i>
+        Employees
+    </a>
+
+    <a href="/">
+        <i class="bi bi-box-arrow-right"></i>
+        Logout
+    </a>
+
+</div>
+
+<!-- ===========================
+        Main Area
+============================ -->
+
+<div class="main">
+
+    <!-- Top Navigation -->
+
+    <div class="topbar">
+
+        <div class="welcome">
+
+            <h3>
+                Welcome Back, Admin 
+            </h3>
+
+            <p>
+                Banking Management System with ML-Based Fraud Detection Dashboard
+            </p>
+
+        </div>
+
+        <div class="status">
+
+            <h6>
+
+                <i class="bi bi-calendar-event"></i>
+
+                2026
+
+            </h6>
+
+            <span class="online">
+
+                ● System Online
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Banner -->
+
+    <div class="dashboard-banner">
+
+        <h2>
+
+            Intelligent Transaction Monitoring & Banking Operations Dashboard
+            
+
+        </h2>
+
+        <p>
+
+            Manage customers, accounts, transactions, loans, cards and employees while monitoring transaction risk using machine learning.
+        </p>
+
+    </div>
+
+    
+
+    <!-- ===========================
+            KPI SECTION STARTS
+         =========================== -->
+
+    <h3 class="section-title">
+
+          Banking Overview
+
+    </h3>
+
+    <div class="row g-4">
+    <!-- Customer Card -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Customers</h6>
+
+                    <h2>{{ customers }}</h2>
+
+                    <small>Total Registered</small>
+
+                </div>
+
+                <div class="icon-box blue">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Accounts -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Accounts</h6>
+
+                    <h2>{{ accounts }}</h2>
+
+                    <small>Active Accounts</small>
+
+                </div>
+
+                <div class="icon-box green">
+
+                    <i class="bi bi-bank2"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Transactions -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Transactions</h6>
+
+                    <h2>{{ transactions }}</h2>
+
+                    <small>Completed</small>
+
+                </div>
+
+                <div class="icon-box orange">
+
+                    <i class="bi bi-cash-stack"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Loans -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Loans</h6>
+
+                    <h2>{{ loans }}</h2>
+
+                    <small>Total Loans</small>
+
+                </div>
+
+                <div class="icon-box red">
+
+                    <i class="bi bi-currency-rupee"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Employees -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Employees</h6>
+
+                    <h2>{{ employees }}</h2>
+
+                    <small>Working Staff</small>
+
+                </div>
+
+                <div class="icon-box purple">
+
+                    <i class="bi bi-person-badge-fill"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Cards</h6>
+
+                    <h2>{{ cards }}</h2>
+
+                    <small>Issued Cards</small>
+
+                </div>
+
+                <div class="icon-box dark">
+
+                    <i class="bi bi-credit-card-2-front-fill"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Active Cards -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Active Cards</h6>
+
+                    <h2>{{ active_cards }}</h2>
+
+                    <small>Currently Active</small>
+
+                </div>
+
+                <div class="icon-box cyan">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Balance -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h6 class="text-muted">Bank Balance</h6>
+
+                    <h4>₹ {{ total_balance }}</h4>
+
+                    <small>Total Assets</small>
+
+                </div>
+
+                <div class="icon-box pink">
+
+                    <i class="bi bi-wallet2"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+
+<h3 class="section-title">
+
+    Banking Insights
+
+</h3>
+
+<div class="row">
+
+    <div class="col-lg-3 mb-4">
+
+        <div class="alert alert-success shadow">
+
+             Deposits are increasing steadily.
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 mb-4">
+
+        <div class="alert alert-warning shadow">
+
+             {{ active_cards }} Active Cards in use.
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 mb-4">
+
+        <div class="alert alert-info shadow">
+
+            💰 Total Assets
+
+            <br>
+
+            <strong>
+
+                ₹ {{ total_balance }}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 mb-4">
+
+        <div class="alert alert-danger shadow">
+
+            🏦 Approved Loans Worth
+
+            <br>
+
+            <strong>
+
+                ₹ {{ total_loans }}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+
+<h3 class="section-title">
+
+💰 Financial Overview
+
+</h3>
+
+<div class="row">
+
+<div class="col-lg-4 mb-4">
+
+<div class="card dashboard-card">
+
+<div class="card-body">
+
+<h5>Total Bank Balance</h5>
+
+<h2>
+
+₹ {{ total_balance }}
+
+</h2>
+
+<p class="text-success">
+
+Overall Customer Deposits
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4 mb-4">
+
+<div class="card dashboard-card">
+
+<div class="card-body">
+
+<h5>Approved Loans</h5>
+
+<h2>
+
+₹ {{ total_loans }}
+
+</h2>
+
+<p class="text-primary">
+
+Loans Distributed
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4 mb-4">
+
+<div class="card dashboard-card">
+
+<div class="card-body">
+
+<h5>System Status</h5>
+
+<h2 class="text-success">
+
+ONLINE
+
+</h2>
+
+<p>
+
+All Banking Services Running Normally
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!--                ML TRANSACTION MONITORING                  -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+    ML Transaction Monitoring
+</h3>
+
+<div class="row g-4 mb-4">
+
+    <!-- Transactions Analyzed -->
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Transactions Analyzed
+                </h6>
+
+                <h2>
+                    {{ ml_analyzed }}
+                </h2>
+
+                <small class="text-muted">
+                    Transactions checked by ML
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Normal -->
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Normal Transactions
+                </h6>
+
+                <h2 class="text-success">
+                    {{ ml_normal }}
+                </h2>
+
+                <small class="text-success">
+                    No suspicious pattern detected
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Suspicious -->
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Suspicious Transactions
+                </h6>
+
+                <h2 class="text-warning">
+                    {{ ml_suspicious }}
+                </h2>
+
+                <small class="text-warning">
+                    Requires attention
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- High Risk -->
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card h-100">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    High-Risk Transactions
+                </h6>
+
+                <h2 class="text-danger">
+                    {{ ml_high_risk }}
+                </h2>
+
+                <small class="text-danger">
+                    Highest ML risk level
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                  HIGH-RISK TRANSACTIONS                   -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+    High-Risk Transactions
+</h3>
+
+<div class="card dashboard-card mb-4">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <div>
+                <h5 class="mb-1">
+                    Transactions Requiring Attention
+                </h5>
+
+                <small class="text-muted">
+                    Top transactions ranked by ML risk score
+                </small>
+            </div>
+
+            <a href="/transactions"
+               class="btn btn-outline-primary btn-sm">
+
+                View All Transactions
+
+            </a>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th>Reference</th>
+
+                        <th>Type</th>
+
+                        <th>Amount</th>
+
+                        <th>ML Prediction</th>
+
+                        <th>Risk Score</th>
+
+                        <th>Risk Status</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% if high_risk_transactions %}
+
+                    {% for txn in high_risk_transactions %}
+
+                    <tr>
+
+                        <!-- Reference -->
+
+                        <td>
+
+                            <strong>
+                                {{ txn[0] }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- Transaction Type -->
+
+                        <td>
+
+                            {% if txn[1] == "Deposit" %}
+
+                                <span class="badge bg-success">
+                                    Deposit
+                                </span>
+
+                            {% elif txn[1] == "Withdrawal" %}
+
+                                <span class="badge bg-danger">
+                                    Withdrawal
+                                </span>
+
+                            {% elif txn[1] == "Transfer" %}
+
+                                <span class="badge bg-primary">
+                                    Transfer
+                                </span>
+
+                            {% elif txn[1] == "UPI" %}
+
+                                <span class="badge bg-info text-dark">
+                                    UPI
+                                </span>
+
+                            {% elif txn[1] == "NEFT" %}
+
+                                <span class="badge bg-secondary">
+                                    NEFT
+                                </span>
+
+                            {% elif txn[1] == "RTGS" %}
+
+                                <span class="badge bg-dark">
+                                    RTGS
+                                </span>
+
+                            {% elif txn[1] == "IMPS" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    IMPS
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+                                    {{ txn[1] }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Amount -->
+
+                        <td>
+
+                            <strong>
+                                ₹ {{ "{:,.2f}".format(txn[2]|float) }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- ML Prediction -->
+
+                        <td>
+
+                            {% if txn[4] == 1 %}
+
+                                <span class="badge bg-danger">
+                                    Suspicious
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+                                    Normal
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ML Risk Score -->
+
+                        <td>
+
+                            {% if txn[5] is not none %}
+
+                                <strong class="text-danger">
+
+                                    {{ "{:.2f}".format((txn[5]|float) * 100) }}%
+
+                                </strong>
+
+                            {% else %}
+
+                                —
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Risk Status -->
+
+                        <td>
+
+                            {% if txn[6] == "High" %}
+
+                                <span class="badge bg-danger">
+                                    High Risk
+                                </span>
+
+                            {% elif txn[6] == "Medium" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    Medium Risk
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+                                    Low Risk
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- Date -->
+
+                        <td>
+
+                            {{ txn[3] }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="7"
+                            class="text-center text-muted py-4">
+
+                            No high-risk transactions detected.
+
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                  LIVE BANKING ACTIVITY                     -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+
+      Recent Banking Activity
+
+</h3>
+
+<div class="card dashboard-card mb-4">
+
+    <div class="card-body">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-primary">
+
+                <tr>
+
+                    <th>Reference</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for txn in recent_transactions %}
+
+            <tr>
+
+                <td>{{ txn[0] }}</td>
+
+                <td>
+
+                    {% if txn[1]=="Deposit" %}
+
+                    <span class="badge bg-success">
+
+                        {{ txn[1] }}
+
+                    </span>
+
+                    {% elif txn[1]=="Withdrawal" %}
+
+                    <span class="badge bg-danger">
+
+                        {{ txn[1] }}
+
+                    </span>
+
+                    {% elif txn[1]=="Transfer" %}
+
+                    <span class="badge bg-primary">
+
+                        {{ txn[1] }}
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-secondary">
+
+                        {{ txn[1] }}
+
+                    </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    ₹ {{ "{:,.2f}".format(txn[2]) }}
+
+                </td>
+
+                <td>
+
+                    {{ txn[3] }}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                    TOP CUSTOMERS                           -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+
+    ⭐ Top Customers
+
+</h3>
+
+<div class="card dashboard-card mb-4">
+
+<div class="card-body">
+
+<table class="table table-striped table-hover">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>#</th>
+<th>Name</th>
+<th>Account</th>
+<th>Balance</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for customer in top_customers %}
+
+<tr>
+
+<td>
+
+{{ loop.index }}
+
+</td>
+
+<td>
+
+{{ customer[0] }} {{ customer[1] }}
+
+</td>
+
+<td>
+
+{{ customer[2] }}
+
+</td>
+
+<td>
+
+₹ {{ "{:,.2f}".format(customer[3]) }}
+
+</td>
+
+<td>
+
+{% if loop.index==1 %}
+
+<span class="badge bg-warning text-dark">
+
+🥇 Platinum
+
+</span>
+
+{% elif loop.index==2 %}
+
+<span class="badge bg-secondary">
+
+🥈 Gold
+
+</span>
+
+{% elif loop.index==3 %}
+
+<span class="badge bg-info">
+
+🥉 Silver
+
+</span>
+
+{% else %}
+
+<span class="badge bg-success">
+
+Premium
+
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                  BRANCH PERFORMANCE                        -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+
+    🏦 Branch Performance
+
+</h3>
+
+<div class="card dashboard-card mb-4">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-primary">
+
+<tr>
+
+<th>Branch</th>
+<th>Customers</th>
+<th>Accounts</th>
+<th>Loans</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for branch in branch_performance %}
+
+<tr>
+
+<td>
+
+{{ branch[0] }}
+
+</td>
+
+<td>
+
+{{ branch[1] }}
+
+</td>
+
+<td>
+
+{{ branch[2] }}
+
+</td>
+
+<td>
+
+{{ branch[3] }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                    TODAY'S TASKS                           -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+
+      Today's Banking Tasks
+
+</h3>
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="alert alert-primary">
+
+👤 Review New Customers
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-success">
+
+💰 Verify Loan Applications
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-warning">
+
+💳 Issue Pending Cards
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="alert alert-danger">
+
+🗄 Database Backup
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!--               QUICK ACCESS MENU                           -->
+<!-- ========================================================= -->
+
+<h3 class="section-title">
+
+      Quick Access
+
+</h3>
+
+<div class="card shadow border-0 mb-5">
+
+    <div class="card-body">
+
+        <div class="row g-4">
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/customers" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-people-fill text-primary fs-1"></i>
+
+                            <h6 class="mt-3">Customers</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/accounts" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-bank2 text-success fs-1"></i>
+
+                            <h6 class="mt-3">Accounts</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/deposit" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-cash-stack text-warning fs-1"></i>
+
+                            <h6 class="mt-3">Deposit</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/withdraw" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-wallet2 text-danger fs-1"></i>
+
+                            <h6 class="mt-3">Withdraw</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/transfer" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-arrow-left-right text-info fs-1"></i>
+
+                            <h6 class="mt-3">Transfer</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/transactions" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-receipt text-secondary fs-1"></i>
+
+                            <h6 class="mt-3">Transactions</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/loans" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-currency-rupee text-dark fs-1"></i>
+
+                            <h6 class="mt-3">Loans</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/cards" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-credit-card-2-front text-primary fs-1"></i>
+
+                            <h6 class="mt-3">Cards</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+
+                <a href="/employees" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-person-badge text-success fs-1"></i>
+
+                            <h6 class="mt-3">Employees</h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+             
+                <a href="/ml-analytics" class="text-decoration-none">
+
+                    <div class="card text-center shadow-sm h-100">
+
+                        <div class="card-body">
+
+                            <i class="bi bi-cpu text-warning fs-1"></i>
+
+                            <h6 class="mt-3">ML Analytics</h6>
+                        
+                        </div>
+                    
+                    </div>
+                </a>
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SYSTEM MANAGEMENT
+     ===================================================== -->
+
+<style>
+
+    /* System Management Container */
+
+    .bank-system-management {
+        width: 100%;
+        margin-top: 35px;
+        margin-bottom: 35px;
+    }
+
+
+    /* Heading */
+
+    .bank-system-title {
+        font-size: 32px;
+        font-weight: 600;
+        color: #20252b;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+
+    /* Five cards in one row */
+
+    .bank-system-grid {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr));
+
+        gap: 22px;
+    }
+
+
+    /* Individual card */
+
+    .bank-system-card {
+        min-height: 155px;
+
+        background: #ffffff;
+
+        border: 1px solid #d6d6d6;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        text-decoration: none !important;
+
+        color: #111111 !important;
+
+        box-shadow:
+            0px 2px 5px rgba(0, 0, 0, 0.08);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+
+        cursor: pointer;
+    }
+
+
+    /* Card Hover */
+
+    .bank-system-card:hover {
+        transform: translateY(-4px);
+
+        box-shadow:
+            0px 7px 18px rgba(0, 0, 0, 0.15);
+
+        text-decoration: none !important;
+    }
+
+
+    /* Icons */
+
+    .bank-system-card i {
+        font-size: 42px;
+
+        margin-bottom: 18px;
+    }
+
+
+    /* Text */
+
+    .bank-system-card span {
+        font-size: 18px;
+
+        font-weight: 500;
+
+        text-align: center;
+
+        color: #111111;
+    }
+
+
+    /* Individual icon colors */
+
+    .bank-backup i {
+        color: #343a40;
+    }
+
+    .bank-activity i {
+        color: #6c757d;
+    }
+
+    .bank-reports i {
+        color: #0d6efd;
+    }
+
+    .bank-download i {
+        color: #198754;
+    }
+
+    .bank-admin i {
+        color: #003366;
+    }
+
+
+    /* =================================================
+       Tablet
+       ================================================= */
+
+    @media (max-width: 1100px) {
+
+        .bank-system-grid {
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+        }
+
+    }
+
+
+    /* =================================================
+       Mobile
+       ================================================= */
+
+    @media (max-width: 700px) {
+
+        .bank-system-grid {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+        }
+
+    }
+
+
+    @media (max-width: 450px) {
+
+        .bank-system-grid {
+
+            grid-template-columns:
+                1fr;
+
+        }
+
+    }
+
+</style>
+
+
+<div class="bank-system-management">
+
+    <h2 class="bank-system-title">
+        System Management
+    </h2>
+
+
+    <div class="bank-system-grid">
+
+
+        <!-- Database Backup -->
+
+        <a href="/backup_database"
+           class="bank-system-card bank-backup">
+
+            <i class="bi bi-database-fill"></i>
+
+            <span>
+                Database Backup
+            </span>
+
+        </a>
+
+
+        <!-- Activity Log -->
+
+        <a href="/activity"
+           class="bank-system-card bank-activity">
+
+            <i class="bi bi-clock-history"></i>
+
+            <span>
+                Activity Log
+            </span>
+
+        </a>
+
+
+        <!-- Reports -->
+
+        <a href="/reports"
+           class="bank-system-card bank-reports">
+
+            <i class="bi bi-bar-chart-fill"></i>
+
+            <span>
+                Reports
+            </span>
+
+        </a>
+
+
+        <!-- Download Backup -->
+
+        <a href="/download_backup"
+           class="bank-system-card bank-download">
+
+            <i class="bi bi-download"></i>
+
+            <span>
+                Download Backup
+            </span>
+
+        </a>
+
+
+        <!-- Admin Profile -->
+
+        <a href="/admin"
+           class="bank-system-card bank-admin">
+
+            <i class="bi bi-person-circle"></i>
+
+            <span>
+                Admin Profile
+            </span>
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!--                    CURRENT DATE & TIME                     -->
+<!-- ========================================================= -->
+
+
+<div class="card dashboard-card mb-5">
+
+    <div class="card-body text-center">
+
+        <h4>
+
+              Current Date & Time
+
+        </h4>
+
+        <h2 id="clock" class="text-primary mt-3">
+
+        </h2>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                        FOOTER                              -->
+<!-- ========================================================= -->
+
+<footer class="text-center mt-5 mb-3">
+
+    <hr>
+
+    <p>
+
+        <strong>
+
+            Banking Management System with ML-Based Fraud Detection
+
+        </strong>
+
+    </p>
+
+    <p>
+
+        Developed by Vislavath Hathiram
+
+        <strong>
+            Flask • Python • MySQL • Machine Learning • Bootstrap 5
+            © 2026 Banking Management System with ML-Based Fraud Detection
+
+        </strong>
+
+    </p>
+
+
+    <p class="text-muted">
+
+        © 2026 Banking Management System with ML-Based Fraud Detection | Flask Web Application / All Rights Reserved
+
+    </p>
+
+</footer>
+
+</div>
+
+<!-- ========================================================= -->
+<!--                     JAVASCRIPT                            -->
+<!-- ========================================================= -->
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+// ==========================================
+// Live Clock
+// ==========================================
+
+function updateClock() {
+
+    const now = new Date();
+
+    const clock = document.getElementById("clock");
+
+    if (clock) {
+
+        clock.innerHTML = now.toLocaleString();
+
+    }
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+// ==========================================
+// Customer vs Accounts Chart
+// ==========================================
+
+const customerCanvas = document.getElementById("customerChart");
+
+if (customerCanvas) {
+
+    new Chart(customerCanvas, {
+
+        type: "bar",
+
+        data: {
+
+            labels: [
+
+                "Customers",
+
+                "Accounts"
+
+            ],
+
+            datasets: [{
+
+                label: "Total",
+
+                data: [
+
+                    {{ customers }},
+
+                    {{ accounts }}
+
+                ],
+
+                backgroundColor: [
+
+                    "#0d6efd",
+
+                    "#198754"
+
+                ],
+
+                borderWidth: 1
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+// ==========================================
+// Cards vs Employees Chart
+// ==========================================
+
+const cardCanvas = document.getElementById("cardChart");
+
+if (cardCanvas) {
+
+    new Chart(cardCanvas, {
+
+        type: "pie",
+
+        data: {
+
+            labels: [
+
+                "Cards",
+
+                "Employees"
+
+            ],
+
+            datasets: [{
+
+                data: [
+
+                    {{ cards }},
+
+                    {{ employees }}
+
+                ],
+
+                backgroundColor: [
+
+                    "#ffc107",
+
+                    "#20c997"
+
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true
+
+        }
+
+    });
+
+}
+
+// ==========================================
+// Financial Overview
+// ==========================================
+
+const financeCanvas = document.getElementById("financeChart");
+
+if (financeCanvas) {
+
+    new Chart(financeCanvas, {
+
+        type: "line",
+
+        data: {
+
+            labels: [
+
+                "Bank Balance",
+
+                "Approved Loans"
+
+            ],
+
+            datasets: [{
+
+                label: "Amount",
+
+                data: [
+
+                    {{ total_balance }},
+
+                    {{ total_loans }}
+
+                ],
+
+                borderColor: "#dc3545",
+
+                backgroundColor: "#dc3545",
+
+                tension: 0.4,
+
+                fill: false
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

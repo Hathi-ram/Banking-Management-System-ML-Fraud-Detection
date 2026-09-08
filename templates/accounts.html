@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>🏦 Accounts</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 94%;
+            margin: 25px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d6efd;
+            margin-bottom: 25px;
+        }
+
+        /* =====================================
+           Top Section
+        ===================================== */
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-form {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .search-input {
+            width: 250px;
+            padding: 9px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #0d6efd;
+        }
+
+        /* Small Search Button */
+
+        .search-btn {
+            width: 38px;
+            height: 36px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: #0d6efd;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Small Reset Button */
+
+        .reset-btn {
+            width: 38px;
+            height: 36px;
+            padding: 0;
+            border: none;
+            border-radius: 6px;
+            background: #6c757d;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-btn:hover,
+        .reset-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* Add Account */
+
+        .add-btn {
+            background: #198754;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .add-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* =====================================
+           Table
+        ===================================== */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th {
+            background: #0d6efd;
+            color: white;
+            padding: 12px 8px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #eef5ff;
+        }
+
+        /* =====================================
+           Status
+        ===================================== */
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .active {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .inactive {
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .closed {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        /* =====================================
+           Action Buttons
+        ===================================== */
+
+        .edit-btn {
+            background: #ffc107;
+            color: #000;
+            padding: 6px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+            margin-right: 3px;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .edit-btn:hover,
+        .delete-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* =====================================
+           Pagination
+        ===================================== */
+
+        .pagination {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .pagination a,
+        .pagination span {
+            display: inline-block;
+            padding: 7px 11px;
+            margin: 3px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .pagination a {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .pagination a:hover {
+            opacity: 0.85;
+        }
+
+        .current-page {
+            background: #212529;
+            color: white;
+        }
+
+        /* =====================================
+           Bottom Buttons
+        ===================================== */
+
+        .bottom-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .dashboard-btn {
+            background: #0d6efd;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏦 Account Management</h1>
+
+    <!-- ==================================
+         Search + Add
+    =================================== -->
+
+    <div class="top-bar">
+
+        <form method="GET"
+              action="/accounts"
+              class="search-form">
+
+            <input
+                type="text"
+                name="search"
+                class="search-input"
+                placeholder="Search account..."
+                value="{{ search }}"
+            >
+
+            <!-- Small Search -->
+
+            <button
+                type="submit"
+                class="search-btn"
+                title="Search"
+            >
+                🔍
+            </button>
+
+            <!-- Small Reset -->
+
+            <a
+                href="/accounts"
+                class="reset-btn"
+                title="Reset"
+            >
+                ↻
+            </a>
+
+        </form>
+
+        <a
+            href="/add_account"
+            class="add-btn"
+        >
+            ➕ Add Account
+        </a>
+
+    </div>
+
+
+    <!-- ==================================
+         Account Table
+    =================================== -->
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Account Number</th>
+
+                    <th>Customer</th>
+
+                    <th>Branch</th>
+
+                    <th>Type</th>
+
+                    <th>Balance</th>
+
+                    <th>Status</th>
+
+                    <th>Open Date</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if accounts %}
+
+                    {% for account in accounts %}
+
+                    <tr>
+
+                        <td>
+                            {{ account.account_id }}
+                        </td>
+
+                        <td>
+                            {{ account.account_number }}
+                        </td>
+
+                        <td>
+                            {{ account.customer_name }}
+                        </td>
+
+                        <td>
+                            {{ account.branch_name }}
+                        </td>
+
+                        <td>
+                            {{ account.account_type }}
+                        </td>
+
+                        <td>
+                            ₹ {{ "{:,.2f}".format(account.balance or 0) }}
+                        </td>
+
+                        <td>
+
+                            {% if account.account_status == "Active" %}
+
+                                <span class="status active">
+                                    Active
+                                </span>
+
+                            {% elif account.account_status == "Inactive" %}
+
+                                <span class="status inactive">
+                                    Inactive
+                                </span>
+
+                            {% else %}
+
+                                <span class="status closed">
+                                    {{ account.account_status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ account.open_date }}
+                        </td>
+
+                        <td>
+
+                            <a
+                                href="/edit_account/{{ account.account_id }}"
+                                class="edit-btn"
+                            >
+                                ✏ Edit
+                            </a>
+
+                            <a
+                                href="/delete_account/{{ account.account_id }}"
+                                class="delete-btn"
+                                onclick="return confirm('Are you sure you want to delete this account?');"
+                            >
+                                🗑 Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="9">
+                            No accounts found.
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ==================================
+         Pagination
+    =================================== -->
+
+    {% if total_pages > 1 %}
+
+    <div class="pagination">
+
+        {% if page > 1 %}
+
+            <a
+                href="/accounts?search={{ search }}&page={{ page - 1 }}"
+            >
+                ← Previous
+            </a>
+
+        {% endif %}
+
+
+        {% for p in range(1, total_pages + 1) %}
+
+            {% if p == page %}
+
+                <span class="current-page">
+                    {{ p }}
+                </span>
+
+            {% else %}
+
+                <a
+                    href="/accounts?search={{ search }}&page={{ p }}"
+                >
+                    {{ p }}
+                </a>
+
+            {% endif %}
+
+        {% endfor %}
+
+
+        {% if page < total_pages %}
+
+            <a
+                href="/accounts?search={{ search }}&page={{ page + 1 }}"
+            >
+                Next →
+            </a>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ==================================
+         Dashboard
+    =================================== -->
+
+    <div class="bottom-buttons">
+
+        <a
+            href="/dashboard"
+            class="dashboard-btn"
+        >
+            🏠 Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

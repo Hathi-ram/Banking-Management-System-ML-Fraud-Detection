@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Transactions | Banking Management System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* =====================================================
+           Transaction Page
+        ===================================================== */
+
+        .transaction-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .transaction-header h1 {
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           Search Section
+        ===================================================== */
+
+        .search-section {
+            background: #f8f9fa;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-form input {
+            flex: 1;
+            padding: 11px 14px;
+            font-size: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search-form input:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+        }
+
+        .search-form button,
+        .action-button,
+        .pagination button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        .search-button {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .search-button:hover {
+            background: #0b5ed7;
+        }
+
+        .reset-button {
+            background: #6c757d;
+            color: white;
+        }
+
+        .reset-button:hover {
+            background: #5c636a;
+        }
+
+
+        /* =====================================================
+           New Transaction
+        ===================================================== */
+
+        .new-transaction {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 22px;
+        }
+
+        .new-transaction:hover {
+            background: #157347;
+            color: white;
+        }
+
+
+        /* =====================================================
+           Transaction Table
+        ===================================================== */
+
+        .transaction-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+
+            /* Increased because of ML columns */
+            min-width: 1350px;
+        }
+
+        .transaction-table th {
+            background: #182848;
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .transaction-table td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+        .transaction-table tbody tr:hover {
+            background: #f8faff;
+        }
+
+
+        /* =====================================================
+           Reference
+        ===================================================== */
+
+        .reference {
+            font-weight: 600;
+            color: #23395d;
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           Account Number
+        ===================================================== */
+
+        .account-number {
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           Amount
+        ===================================================== */
+
+        .amount {
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           Date
+        ===================================================== */
+
+        .transaction-date {
+            white-space: nowrap;
+            color: #555;
+        }
+
+
+        /* =====================================================
+           Transaction Type Badges
+        ===================================================== */
+
+        .type-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .type-deposit {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .type-withdrawal {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .type-transfer {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .type-upi {
+            background: #e2d9f3;
+            color: #432874;
+        }
+
+        .type-neft {
+            background: #cff4fc;
+            color: #055160;
+        }
+
+        .type-rtgs {
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .type-imps {
+            background: #e2e3e5;
+            color: #41464b;
+        }
+
+        .type-default {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+
+        /* =====================================================
+           ML FRAUD DETECTION
+        ===================================================== */
+
+        .ml-column {
+            min-width: 130px;
+        }
+
+
+        /* =====================================================
+           ML Prediction
+        ===================================================== */
+
+        .prediction-badge {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .prediction-normal {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .prediction-suspicious {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .prediction-unknown {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+
+        /* =====================================================
+           ML Risk Score
+        ===================================================== */
+
+        .risk-score {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .risk-score-low {
+            color: #198754;
+        }
+
+        .risk-score-medium {
+            color: #b58105;
+        }
+
+        .risk-score-high {
+            color: #dc3545;
+        }
+
+        .risk-score-unknown {
+            color: #6c757d;
+        }
+
+
+        /* =====================================================
+           Risk Status
+        ===================================================== */
+
+        .risk-badge {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .risk-low {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .risk-medium {
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .risk-high {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .risk-unknown {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+
+        /* =====================================================
+           ML Header Indicator
+        ===================================================== */
+
+        .ml-header {
+            background: #172554 !important;
+        }
+
+        .ml-header small {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            opacity: 0.75;
+            margin-top: 2px;
+        }
+
+
+        /* =====================================================
+           Action Buttons
+        ===================================================== */
+
+        .action-container {
+            display: flex;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+        .edit-button {
+            background: #0d6efd;
+            color: white;
+            text-decoration: none;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .edit-button:hover {
+            background: #0b5ed7;
+            color: white;
+        }
+
+        .delete-button {
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .delete-button:hover {
+            background: #bb2d3b;
+            color: white;
+        }
+
+
+        /* =====================================================
+           Empty State
+        ===================================================== */
+
+        .empty-state {
+            text-align: center;
+            padding: 40px !important;
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           Pagination
+        ===================================================== */
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+        }
+
+        .pagination button {
+            background: #182848;
+            color: white;
+        }
+
+        .pagination button:hover {
+            background: #274690;
+        }
+
+        .page-number {
+            padding: 10px 16px;
+            font-weight: 700;
+            color: #23395d;
+            background: #f1f3f5;
+            border-radius: 7px;
+        }
+
+
+        /* =====================================================
+           Dashboard Button
+        ===================================================== */
+
+        .dashboard-link {
+            display: inline-block;
+            margin-top: 25px;
+            background: #343a40;
+            color: white;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-weight: 500;
+        }
+
+        .dashboard-link:hover {
+            background: #212529;
+            color: white;
+        }
+
+
+        /* =====================================================
+           Responsive
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            .search-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .transaction-header {
+                align-items: flex-start;
+            }
+
+            .new-transaction {
+                width: 100%;
+                text-align: center;
+            }
+
+            .pagination {
+                flex-wrap: wrap;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="card">
+
+
+    <!-- =====================================================
+         Header
+    ====================================================== -->
+
+    <div class="transaction-header">
+
+        <h1>💳 Transaction List</h1>
+
+    </div>
+
+
+    <!-- =====================================================
+         Search
+    ====================================================== -->
+
+    <div class="search-section">
+
+        <form method="GET"
+              action="/transactions"
+              class="search-form">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search by Reference, Account Number or Transaction Type"
+                value="{{ search }}">
+
+            <button type="submit"
+                    class="search-button">
+
+                Search
+
+            </button>
+
+            <a href="/transactions">
+
+                <button type="button"
+                        class="reset-button">
+
+                    Reset
+
+                </button>
+
+            </a>
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         New Transaction
+    ====================================================== -->
+
+    <a href="/add_transaction"
+       class="new-transaction">
+
+        + New Transaction
+
+    </a>
+
+
+    <!-- =====================================================
+         Transaction Table
+    ====================================================== -->
+
+    <div class="transaction-table-wrapper">
+
+        <table class="transaction-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Reference</th>
+
+                    <th>Account No</th>
+
+                    <th>Type</th>
+
+                    <th>Amount</th>
+
+                    <th>Date</th>
+
+                    <!-- ML COLUMNS -->
+
+                    <th class="ml-header ml-column">
+                        ML Prediction
+                        <small>Fraud Detection</small>
+                    </th>
+
+                    <th class="ml-header ml-column">
+                        ML Risk Score
+                        <small>Model Score</small>
+                    </th>
+
+                    <th class="ml-header ml-column">
+                        Risk Status
+                        <small>Risk Level</small>
+                    </th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% if transactions %}
+
+                {% for t in transactions %}
+
+                <tr>
+
+
+                    <!-- =================================================
+                         ID
+                    ================================================== -->
+
+                    <td>
+
+                        {{ t.transaction_id }}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         Reference
+                    ================================================== -->
+
+                    <td class="reference">
+
+                        {{ t.transaction_reference }}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         Account
+                    ================================================== -->
+
+                    <td class="account-number">
+
+                        {{ t.account_number }}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         Transaction Type
+                    ================================================== -->
+
+                    <td>
+
+                        {% if t.transaction_type == "Deposit" %}
+
+                            <span class="type-badge type-deposit">
+                                Deposit
+                            </span>
+
+                        {% elif t.transaction_type == "Withdrawal" %}
+
+                            <span class="type-badge type-withdrawal">
+                                Withdrawal
+                            </span>
+
+                        {% elif t.transaction_type == "Transfer" %}
+
+                            <span class="type-badge type-transfer">
+                                Transfer
+                            </span>
+
+                        {% elif t.transaction_type == "UPI" %}
+
+                            <span class="type-badge type-upi">
+                                UPI
+                            </span>
+
+                        {% elif t.transaction_type == "NEFT" %}
+
+                            <span class="type-badge type-neft">
+                                NEFT
+                            </span>
+
+                        {% elif t.transaction_type == "RTGS" %}
+
+                            <span class="type-badge type-rtgs">
+                                RTGS
+                            </span>
+
+                        {% elif t.transaction_type == "IMPS" %}
+
+                            <span class="type-badge type-imps">
+                                IMPS
+                            </span>
+
+                        {% else %}
+
+                            <span class="type-badge type-default">
+                                {{ t.transaction_type }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         Amount
+                    ================================================== -->
+
+                    <td class="amount">
+
+                        ₹ {{ "{:,.2f}".format(t.amount|float) }}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         Date
+                    ================================================== -->
+
+                    <td class="transaction-date">
+
+                        {{ t.transaction_date }}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         ML PREDICTION
+                    ================================================== -->
+
+                    <td>
+
+                        {% if t.ml_risk_score is not none %}
+
+                            {% if t.ml_prediction == 1 %}
+
+                                <span class="prediction-badge prediction-suspicious">
+
+                                    Suspicious
+
+                                </span>
+
+                            {% elif t.ml_prediction == 0 %}
+
+                                <span class="prediction-badge prediction-normal">
+
+                                    Normal
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="prediction-badge prediction-unknown">
+
+                                    Not Analyzed
+
+                                </span>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            <span class="prediction-badge prediction-unknown">
+
+                                Not Analyzed
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         ML RISK SCORE
+                    ================================================== -->
+
+                    <td>
+
+                        {% if t.ml_risk_score is not none %}
+
+                            {% set score = (t.ml_risk_score|float) * 100 %}
+
+                            {% if score < 40 %}
+
+                                <span class="risk-score risk-score-low">
+
+                                    {{ "{:.2f}".format(score) }}%
+
+                                </span>
+
+                            {% elif score < 70 %}
+
+                                <span class="risk-score risk-score-medium">
+
+                                    {{ "{:.2f}".format(score) }}%
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="risk-score risk-score-high">
+
+                                    {{ "{:.2f}".format(score) }}%
+
+                                </span>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            <span class="risk-score risk-score-unknown">
+
+                                —
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         RISK STATUS
+                    ================================================== -->
+
+                    <td>
+
+                        {% if t.ml_risk_score is not none %}
+
+                            {% if t.ml_risk_level == "Low" %}
+
+                                <span class="risk-badge risk-low">
+
+                                    Low Risk
+
+                                </span>
+
+                            {% elif t.ml_risk_level == "Medium" %}
+
+                                <span class="risk-badge risk-medium">
+
+                                    Medium Risk
+
+                                </span>
+
+                            {% elif t.ml_risk_level == "High" %}
+
+                                <span class="risk-badge risk-high">
+
+                                    High Risk
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="risk-badge risk-unknown">
+
+                                    Not Analyzed
+
+                                </span>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            <span class="risk-badge risk-unknown">
+
+                                Not Analyzed
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- =================================================
+                         Actions
+                    ================================================== -->
+
+                    <td>
+
+                        <div class="action-container">
+
+                            <a href="/edit_transaction/{{ t.transaction_id }}"
+                               class="edit-button">
+
+                                Edit
+
+                            </a>
+
+
+                            <a href="/delete_transaction/{{ t.transaction_id }}"
+                               class="delete-button"
+                               onclick="return confirm('Delete this transaction?');">
+
+                                Delete
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+
+                </tr>
+
+                {% endfor %}
+
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="10"
+                        class="empty-state">
+
+                        No transactions found.
+
+                    </td>
+
+                </tr>
+
+            {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- =====================================================
+         Pagination
+    ====================================================== -->
+
+    <div class="pagination">
+
+        {% if page > 1 %}
+
+            <a href="/transactions?page={{ page-1 }}&search={{ search }}">
+
+                <button type="button">
+
+                    Previous
+
+                </button>
+
+            </a>
+
+        {% endif %}
+
+
+        <span class="page-number">
+
+            Page {{ page }} of {{ total_pages }}
+
+        </span>
+
+
+        {% if page < total_pages %}
+
+            <a href="/transactions?page={{ page+1 }}&search={{ search }}">
+
+                <button type="button">
+
+                    Next
+
+                </button>
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- =====================================================
+         Dashboard
+    ====================================================== -->
+
+    <a href="/dashboard"
+       class="dashboard-link">
+
+        Dashboard
+
+    </a>
+
+
+</div>
+
+</body>
+
+</html>

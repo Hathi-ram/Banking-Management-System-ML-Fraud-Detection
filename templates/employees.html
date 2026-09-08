@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Employees</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>👨‍💼 Employee List</h1>
+
+    <br>
+
+    <!-- ========================= -->
+    <!-- Search -->
+    <!-- ========================= -->
+
+    <form method="GET" action="/employees">
+
+        <table width="100%">
+
+            <tr>
+
+                <td width="80%">
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="🔍 Search by Name, Code, Designation, Branch"
+                        value="{{ search }}"
+                        style="width:100%;padding:10px;font-size:16px;">
+
+                </td>
+
+                <td>
+
+                    <button type="submit">
+
+                        🔍 Search
+
+                    </button>
+
+                </td>
+
+                <td>
+
+                    <a href="/employees">
+
+                        <button type="button">
+
+                            🔄 Reset
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </form>
+
+    <br>
+
+    <a href="/add_employee">
+
+        <button>
+
+            ➕ Add Employee
+
+        </button>
+
+    </a>
+
+    <br><br>
+
+    <table border="1" width="100%" cellpadding="10">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Designation</th>
+            <th>Branch</th>
+            <th>Salary</th>
+            <th>Phone</th>
+            <th>Action</th>
+
+        </tr>
+
+        {% if employees %}
+
+            {% for employee in employees %}
+
+            <tr>
+
+                <td>{{ employee.employee_id }}</td>
+
+                <td>{{ employee.employee_code }}</td>
+
+                <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+
+                <td>{{ employee.designation }}</td>
+
+                <td>{{ employee.branch_name }}</td>
+
+                <td>₹ {{ employee.salary }}</td>
+
+                <td>{{ employee.phone }}</td>
+
+                <td>
+
+                    <a href="/edit_employee/{{ employee.employee_id }}">
+
+                        <button>
+
+                            ✏ Edit
+
+                        </button>
+
+                    </a>
+
+                    <a href="/delete_employee/{{ employee.employee_id }}"
+                       onclick="return confirm('Delete this employee?');">
+
+                        <button style="background:red;color:white;">
+
+                            🗑 Delete
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="8" style="text-align:center;color:red;">
+
+                    ❌ No employees found.
+
+                </td>
+
+            </tr>
+
+        {% endif %}
+
+    </table>
+
+    <br>
+
+    <!-- ========================= -->
+    <!-- Pagination -->
+    <!-- ========================= -->
+
+    <div style="text-align:center;">
+
+        {% if page > 1 %}
+
+        <a href="/employees?page={{ page-1 }}&search={{ search }}">
+
+            <button>
+
+                ⬅ Previous
+
+            </button>
+
+        </a>
+
+        {% endif %}
+
+        <span style="padding:15px;font-weight:bold;">
+
+            Page {{ page }} of {{ total_pages }}
+
+        </span>
+
+        {% if page < total_pages %}
+
+        <a href="/employees?page={{ page+1 }}&search={{ search }}">
+
+            <button>
+
+                Next ➡
+
+            </button>
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <a href="/dashboard">
+
+        <button>
+
+            🏠 Dashboard
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Activity Log</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+
+            background: #f4f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .card {
+
+            width: 90%;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,.15);
+
+        }
+
+        h1 {
+
+            text-align: center;
+            color: #0d6efd;
+
+        }
+
+        .search-box {
+
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+
+        }
+
+        .search-box input {
+
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+
+        }
+
+        button {
+
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+            background: #0d6efd;
+            font-size: 15px;
+
+        }
+
+        .reset {
+
+            background: #6c757d;
+
+        }
+
+        table {
+
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+
+        }
+
+        th {
+
+            background: #0d6efd;
+            color: white;
+            padding: 12px;
+
+        }
+
+        td {
+
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+
+        }
+
+        tr:nth-child(even) {
+
+            background: #f8f9fa;
+
+        }
+
+        .pagination {
+
+            text-align: center;
+            margin-top: 25px;
+
+        }
+
+        .pagination a {
+
+            display: inline-block;
+            padding: 8px 14px;
+            margin: 4px;
+
+            text-decoration: none;
+
+            background: #0d6efd;
+            color: white;
+
+            border-radius: 5px;
+
+        }
+
+        .pagination .current {
+
+            background: #198754;
+
+        }
+
+        .bottom {
+
+            text-align: center;
+            margin-top: 30px;
+
+        }
+
+        .dashboard {
+
+            background: #0d6efd;
+
+        }
+
+        .empty {
+
+            color: red;
+            font-weight: bold;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+    <!-- ================================================== -->
+    <!-- Heading -->
+    <!-- ================================================== -->
+
+    <h1>📋 Banking Activity Log</h1>
+
+
+    <!-- ================================================== -->
+    <!-- Search -->
+    <!-- ================================================== -->
+
+    <form
+        method="GET"
+        action="/activity"
+        class="search-box">
+
+
+        <input
+            type="text"
+            name="search"
+            placeholder="🔍 Search activity..."
+            value="{{ search }}">
+
+
+        <button type="submit">
+
+            🔍 Search
+
+        </button>
+
+
+        <a href="/activity">
+
+            <button
+                type="button"
+                class="reset">
+
+                🔄 Reset
+
+            </button>
+
+        </a>
+
+
+    </form>
+
+
+    <!-- ================================================== -->
+    <!-- Activity Table -->
+    <!-- ================================================== -->
+
+    <table>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Activity</th>
+
+            <th>Date & Time</th>
+
+        </tr>
+
+
+        {% if activities %}
+
+
+            {% for item in activities %}
+
+
+            <tr>
+
+                <td>
+
+                    {{ item.log_id }}
+
+                </td>
+
+
+                <td>
+
+                    {{ item.activity }}
+
+                </td>
+
+
+                <td>
+
+                    {{ item.activity_time }}
+
+                </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <tr>
+
+                <td
+                    colspan="3"
+                    class="empty">
+
+                    ❌ No activity records found.
+
+                </td>
+
+            </tr>
+
+
+        {% endif %}
+
+
+    </table>
+
+
+    <!-- ================================================== -->
+    <!-- Pagination -->
+    <!-- ================================================== -->
+
+    {% if total_pages > 1 %}
+
+    <div class="pagination">
+
+
+        {% if page > 1 %}
+
+            <a
+                href="/activity?page={{ page - 1 }}{% if search %}&search={{ search }}{% endif %}">
+
+                ◀ Previous
+
+            </a>
+
+        {% endif %}
+
+
+        {% for p in range(1, total_pages + 1) %}
+
+
+            {% if p == page %}
+
+                <a
+                    class="current"
+                    href="#">
+
+                    {{ p }}
+
+                </a>
+
+            {% else %}
+
+                <a
+                    href="/activity?page={{ p }}{% if search %}&search={{ search }}{% endif %}">
+
+                    {{ p }}
+
+                </a>
+
+            {% endif %}
+
+
+        {% endfor %}
+
+
+        {% if page < total_pages %}
+
+            <a
+                href="/activity?page={{ page + 1 }}{% if search %}&search={{ search }}{% endif %}">
+
+                Next ▶
+
+            </a>
+
+        {% endif %}
+
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ================================================== -->
+    <!-- Dashboard -->
+    <!-- ================================================== -->
+
+    <div class="bottom">
+
+        <a href="/dashboard">
+
+            <button class="dashboard">
+
+                🏠 Dashboard
+
+            </button>
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
+

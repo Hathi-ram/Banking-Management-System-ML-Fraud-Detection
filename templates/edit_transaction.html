@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>✏ Edit Transaction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+
+            background: #f4f7fb;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        .container {
+
+            width: 600px;
+
+            max-width: 90%;
+
+            margin: 40px auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,.15);
+        }
+
+        h1 {
+
+            text-align: center;
+
+            color: #0d6efd;
+
+            margin-bottom: 30px;
+        }
+
+        .reference {
+
+            background: #f8f9fa;
+
+            padding: 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+            font-weight: bold;
+        }
+
+        label {
+
+            display: block;
+
+            margin-top: 15px;
+
+            margin-bottom: 6px;
+
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            box-sizing: border-box;
+        }
+
+        textarea {
+
+            height: 100px;
+
+            resize: vertical;
+        }
+
+        .buttons {
+
+            margin-top: 25px;
+
+            text-align: center;
+        }
+
+        button {
+
+            padding: 12px 25px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            color: white;
+
+            font-size: 16px;
+
+            margin: 5px;
+        }
+
+        .save {
+
+            background: #198754;
+        }
+
+        .back {
+
+            background: #0d6efd;
+        }
+
+        button:hover {
+
+            opacity: .9;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>✏ Edit Transaction</h1>
+
+
+    {% if transaction %}
+
+    <div class="reference">
+
+        Transaction Reference:
+
+        {{ transaction.transaction_reference }}
+
+    </div>
+
+
+    <form method="POST">
+
+        <label>
+            Transaction Type
+        </label>
+
+        <select
+            name="transaction_type"
+            required>
+
+            <option
+                value="Deposit"
+                {% if transaction.transaction_type == "Deposit" %}
+                selected
+                {% endif %}>
+
+                Deposit
+
+            </option>
+
+            <option
+                value="Withdrawal"
+                {% if transaction.transaction_type == "Withdrawal" %}
+                selected
+                {% endif %}>
+
+                Withdrawal
+
+            </option>
+
+            <option
+                value="Transfer"
+                {% if transaction.transaction_type == "Transfer" %}
+                selected
+                {% endif %}>
+
+                Transfer
+
+            </option>
+
+            <option
+                value="UPI"
+                {% if transaction.transaction_type == "UPI" %}
+                selected
+                {% endif %}>
+
+                UPI
+
+            </option>
+
+            <option
+                value="NEFT"
+                {% if transaction.transaction_type == "NEFT" %}
+                selected
+                {% endif %}>
+
+                NEFT
+
+            </option>
+
+            <option
+                value="RTGS"
+                {% if transaction.transaction_type == "RTGS" %}
+                selected
+                {% endif %}>
+
+                RTGS
+
+            </option>
+
+            <option
+                value="IMPS"
+                {% if transaction.transaction_type == "IMPS" %}
+                selected
+                {% endif %}>
+
+                IMPS
+
+            </option>
+
+        </select>
+
+
+        <label>
+            Amount
+        </label>
+
+        <input
+            type="number"
+            name="amount"
+            step="0.01"
+            min="0"
+            value="{{ transaction.amount }}"
+            required
+        >
+
+
+        <label>
+            Transaction Status
+        </label>
+
+        <select
+            name="transaction_status"
+            required>
+
+            <option
+                value="Success"
+                {% if transaction.transaction_status == "Success" %}
+                selected
+                {% endif %}>
+
+                Success
+
+            </option>
+
+            <option
+                value="Pending"
+                {% if transaction.transaction_status == "Pending" %}
+                selected
+                {% endif %}>
+
+                Pending
+
+            </option>
+
+            <option
+                value="Failed"
+                {% if transaction.transaction_status == "Failed" %}
+                selected
+                {% endif %}>
+
+                Failed
+
+            </option>
+
+        </select>
+
+
+        <label>
+            Remarks
+        </label>
+
+        <textarea
+            name="remarks"
+            placeholder="Enter remarks"
+        >{{ transaction.remarks or "" }}</textarea>
+
+
+        <div class="buttons">
+
+            <button
+                type="submit"
+                class="save">
+
+                💾 Update Transaction
+
+            </button>
+
+
+            <a href="/transactions">
+
+                <button
+                    type="button"
+                    class="back">
+
+                    ↩ Back
+
+                </button>
+
+            </a>
+
+        </div>
+
+    </form>
+
+
+    {% else %}
+
+    <h3 style="color:red;text-align:center;">
+
+        Transaction Not Found
+
+    </h3>
+
+    <div class="buttons">
+
+        <a href="/transactions">
+
+            <button
+                type="button"
+                class="back">
+
+                ↩ Back to Transactions
+
+            </button>
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

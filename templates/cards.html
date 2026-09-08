@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cards</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>💳 Card List</h1>
+
+    <!-- Search Card -->
+    <form method="GET" action="/cards">
+
+        <table width="100%">
+
+            <tr>
+
+                <td width="80%">
+
+                    <input 
+                        type="text"
+                        name="search"
+                        placeholder="🔍 Search by Card Number, Customer Name or Card Type"
+                        value="{{ search }}"
+                        style="width:100%; padding:10px; font-size:16px;"
+                    >
+
+                </td>
+
+
+                <td>
+
+                    <button type="submit">
+                        🔍 Search
+                    </button>
+
+                </td>
+
+
+                <td>
+
+                    <a href="/cards">
+                        <button type="button">
+                            🔄 Reset
+                        </button>
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </form>
+
+
+    <br>
+
+
+    <!-- Add New Card -->
+
+    <a href="/add_card">
+
+        <button>
+            ➕ Issue New Card
+        </button>
+
+    </a>
+
+
+    <br><br>
+
+
+    <!-- Card Table -->
+
+    <table border="1" width="100%" cellpadding="10">
+
+        <tr>
+
+            <th>ID</th>
+            <th>Card Number</th>
+            <th>Customer</th>
+            <th>Card Type</th>
+            <th>Status</th>
+            <th>Expiry Date</th>
+            <th>Action</th>
+
+        </tr>
+
+
+        {% if cards %}
+
+
+            {% for card in cards %}
+
+            <tr>
+
+                <td>
+                    {{ card.card_id }}
+                </td>
+
+
+                <td>
+                    {{ card.card_number }}
+                </td>
+
+
+                <td>
+                    {{ card.customer_name }}
+                </td>
+
+
+                <td>
+                    {{ card.card_type }}
+                </td>
+
+
+                <td>
+                    {{ card.card_status }}
+                </td>
+
+
+                <td>
+                    {{ card.expiry_date }}
+                </td>
+
+
+                <td>
+
+
+                    <a href="/edit_card/{{ card.card_id }}">
+
+                        <button>
+                            ✏ Edit
+                        </button>
+
+                    </a>
+
+
+
+                    <a href="/delete_card/{{ card.card_id }}"
+                       onclick="return confirm('Delete this card?');">
+
+
+                        <button style="background:red;color:white;">
+
+                            🗑 Delete
+
+                        </button>
+
+
+                    </a>
+
+
+                </td>
+
+
+            </tr>
+
+
+            {% endfor %}
+
+
+
+        {% else %}
+
+
+            <tr>
+
+                <td colspan="7"
+                    style="text-align:center;color:red;">
+
+                    ❌ No cards found.
+
+                </td>
+
+            </tr>
+
+
+        {% endif %}
+
+
+    </table>
+
+
+
+    <br>
+
+
+
+    <!-- Pagination -->
+
+
+    <div style="text-align:center;">
+
+
+
+        {% if page > 1 %}
+
+
+        <a href="/cards?page={{ page-1 }}&search={{ search }}">
+
+
+            <button>
+
+                ⬅ Previous
+
+            </button>
+
+
+        </a>
+
+
+        {% endif %}
+
+
+
+
+        <span style="padding:15px;font-weight:bold;">
+
+            Page {{ page }} of {{ total_pages }}
+
+        </span>
+
+
+
+
+        {% if page < total_pages %}
+
+
+        <a href="/cards?page={{ page+1 }}&search={{ search }}">
+
+
+            <button>
+
+                Next ➡
+
+            </button>
+
+
+        </a>
+
+
+        {% endif %}
+
+
+
+    </div>
+
+
+
+    <br>
+
+
+
+    <!-- Dashboard -->
+
+
+    <a href="/dashboard">
+
+
+        <button>
+
+            🏠 Dashboard
+
+        </button>
+
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>

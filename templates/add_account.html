@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>➕ Add Account</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .form-container {
+            width: 650px;
+            max-width: 92%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #0d6efd;
+            margin-bottom: 25px;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #842029;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #0d6efd;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .save-btn {
+            background: #198754;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            padding: 11px 22px;
+            border-radius: 7px;
+            text-decoration: none;
+            margin-left: 8px;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+
+    <h1>➕ Add New Account</h1>
+
+    {% if error %}
+
+        <div class="error">
+            ⚠ {{ error }}
+        </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        <label>
+            Account Number
+        </label>
+
+        <input
+            type="text"
+            name="account_number"
+            placeholder="Example: SB100002"
+            required
+        >
+
+
+        <label>
+            Customer
+        </label>
+
+        <select name="customer_id" required>
+
+            <option value="">
+                -- Select Customer --
+            </option>
+
+            {% for customer in customers %}
+
+                <option value="{{ customer.customer_id }}">
+
+                    {{ customer.first_name }}
+                    {{ customer.last_name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <label>
+            Branch
+        </label>
+
+        <select name="branch_id" required>
+
+            <option value="">
+                -- Select Branch --
+            </option>
+
+            {% for branch in branches %}
+
+                <option value="{{ branch.branch_id }}">
+
+                    {{ branch.branch_name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <label>
+            Account Type
+        </label>
+
+        <select name="account_type" required>
+
+            <option value="">
+                -- Select Account Type --
+            </option>
+
+            <option value="Savings">
+                Savings
+            </option>
+
+            <option value="Current">
+                Current
+            </option>
+
+        </select>
+
+
+        <label>
+            Initial Balance
+        </label>
+
+        <input
+            type="number"
+            name="balance"
+            step="0.01"
+            min="0"
+            value="0"
+            required
+        >
+
+
+        <label>
+            Account Status
+        </label>
+
+        <select name="account_status" required>
+
+            <option value="Active">
+                Active
+            </option>
+
+            <option value="Inactive">
+                Inactive
+            </option>
+
+            <option value="Closed">
+                Closed
+            </option>
+
+        </select>
+
+
+        <label>
+            Open Date
+        </label>
+
+        <input
+            type="date"
+            name="open_date"
+            required
+        >
+
+
+        <div class="buttons">
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                💾 Save Account
+            </button>
+
+            <a
+                href="/accounts"
+                class="back-btn"
+            >
+                ← Back
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
