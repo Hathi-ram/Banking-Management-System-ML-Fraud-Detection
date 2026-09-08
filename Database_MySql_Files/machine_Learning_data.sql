@@ -1,0 +1,7 @@
+USE BankingDB;
+ALTER TABLE Transactions
+ADD COLUMN ml_prediction TINYINT DEFAULT 0,
+ADD COLUMN ml_risk_score DECIMAL(6,5) DEFAULT NULL,
+ADD COLUMN ml_risk_level VARCHAR(20) DEFAULT 'Low',
+ADD COLUMN ml_checked_at DATETIME DEFAULT NULL,
+ADD COLUMN ml_model_version VARCHAR(50) DEFAULT 'v1.0';
