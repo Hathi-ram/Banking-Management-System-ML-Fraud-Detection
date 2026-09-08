@@ -118,8 +118,11 @@ Risk Level	Score Range	Automated Protocol
 
 **## Protocol Action Summary**
 
-🟢 Low Risk (0.0% – 49.9%): Automated approval. Transaction is processed immediately with standard system logging.
-
-🟡 Medium Risk (50.0% – 84.9%): Step-up authentication required. Transaction is paused until OTP/MFA verification succeeds.
-
-🔴 High Risk (85.0% – 100.0%): Immediate hold. Funds are locked and an automated high-priority alert is routed to the admin dashboard for manual compliance review.
+```mermaid
+flowchart TD
+    A[Incoming Transaction] --> B["Feature Engineering<br/>(24 Features Extracted)"]
+    B --> C["ML Inference Engine<br/>(Random Forest Model)"]
+    
+    C --> D["Risk < 50%<br/><b>Low Risk</b><br/>(Approved)"]
+    C --> E["50% ≤ Risk < 85%<br/><b>Medium Risk</b><br/>(OTP / Flagged)"]
+    C --> F["Risk ≥ 85%<br/><b>High Risk</b><br/>(Hold / Review)"]
