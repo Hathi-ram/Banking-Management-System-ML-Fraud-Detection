@@ -18,7 +18,7 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
 
 ## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
 
-
+text
               ┌────────────────────────┐
               │  Incoming Transaction  │
               └───────────┬────────────┘
@@ -44,7 +44,6 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
  │   Low Risk    │ │  Medium Risk  │ │   High Risk   │
  │  (Approved)   │ │(OTP / Flagged)│ │(Hold / Review)│
  └───────────────┘ └───────────────┘ └───────────────┘
-         
 
 
 ##  Performance & Metrics
@@ -93,16 +92,12 @@ scaler = joblib.load('ml/scaler.pkl')
 def predict_fraud(transaction_data):
     features = extract_features(transaction_data) # Returns 24-feature vector
     scaled_features = scaler.transform([features])
-    
     probability = model.predict_proba(scaled_features)[0][1] # Fraud Probability
     is_suspicious = probability >= 0.55
-    
     return {
         "risk_score": round(probability * 100, 2),
         "prediction": "Suspicious" if is_suspicious else "Normal",
-        "risk_status": "High Risk" if probability >= 0.85 else ("Medium Risk" if is_suspicious else "Low Risk")
-        
-    }
+        "risk_status": "High Risk" if probability >= 0.85 else ("Medium Risk" if is_suspicious else "Low Risk")}
 
 
 ### Risk Handling Protocol
