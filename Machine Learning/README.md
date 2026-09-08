@@ -18,7 +18,7 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
 
 ## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
 
-text
+''' text
               ┌────────────────────────┐
               │  Incoming Transaction  │
               └───────────┬────────────┘
@@ -43,7 +43,7 @@ text
  ├───────────────┤ ├───────────────┤ ├───────────────┤
  │   Low Risk    │ │  Medium Risk  │ │   High Risk   │
  │  (Approved)   │ │(OTP / Flagged)│ │(Hold / Review)│
- └───────────────┘ └───────────────┘ └───────────────┘
+ └───────────────┘ └───────────────┘ └───────────────┘  '''
 
 
 ##  Performance & Metrics
