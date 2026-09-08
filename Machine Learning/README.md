@@ -13,7 +13,7 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
 * **Classification Threshold:** `0.55` (configurable)
 * **Risk Categorization:** Low Risk, Medium Risk, High Risk
 
-## Methodology:
+### Methodology:
 
 
 ### <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
