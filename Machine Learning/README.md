@@ -107,7 +107,7 @@ def predict_fraud(transaction_data):
     }
 
 
-**## Risk Handling Protocol**
+** ## Risk Handling Protocol **
 
 **## Risk Assessment Levels**
 
