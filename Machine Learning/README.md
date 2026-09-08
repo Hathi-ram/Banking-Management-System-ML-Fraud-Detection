@@ -15,6 +15,13 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
 
 ## Methodology:
 
+
+
+
+
+### <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/76777adf-c5ed-47f5-988a-8d159c14f07f" />
+
+
               ┌────────────────────────┐
               │ Incoming Transaction   │
               └───────────┬────────────┘
@@ -31,11 +38,14 @@ The ML pipeline analyzes incoming banking transactions to flag potential fraud b
               │ (Random Forest Model)  │
               └───────────┬────────────┘
                           │
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
- [ Risk < 50% ]    [ 50% ≤ Risk < 85% ]   [ Risk ≥ 85% ]
-  Low Risk          Medium Risk           High Risk
- (Approved)       (OTP / Flagged)      (Hold / Review)
+        ┌─────────────────    ┼──────────────            ───┐
+        ▼                      ▼                             ▼
+ ┌─────────────────┐   ┌──────────────────────┐   ┌─────────────────┐
+│   Risk < 50%    │   │  50% ≤ Risk < 85%    │   │   Risk ≥ 85%    │
+├─────────────────┤   ├──────────────────────┤   ├─────────────────┤
+│    Low Risk     │   │     Medium Risk      │   │    High Risk    │
+│   (Approved)    │   │    (OTP / Flagged)   │   │ (Hold / Review) │
+└─────────────────┘   └──────────────────────┘   └─────────────────┘
 
 
 ---
@@ -96,8 +106,19 @@ def predict_fraud(transaction_data):
         "risk_status": "High Risk" if probability >= 0.85 else ("Medium Risk" if is_suspicious else "Low Risk")
     }
 
-###
-Risk Handling ProtocolRisk LevelScore RangeAutomated Protocol🟢 Low Risk0.0% – 49.9%
-Instantly process and log transaction.🟡 Medium Risk50.0% – 84.9%
-Flag transaction; trigger Multi-Factor Authentication (MFA / OTP).🔴 High Risk85.0% – 100.0%
-Block/Hold funds; send alert to admin dashboard for manual review.
+### Risk Handling Protocol
+
+## Risk Assessment Levels
+
+Risk Level	Score Range	Automated Protocol
+🟢 Low Risk	0.0% – 49.9%	Instantly process and log transaction.
+🟡 Medium Risk	50.0% – 84.9%	Flag transaction; trigger Multi-Factor Authentication (MFA / OTP).
+🔴 High Risk	85.0% – 100.0%	Block/Hold funds; send alert to admin dashboard for manual review.
+
+## Protocol Action Summary
+
+🟢 Low Risk (0.0% – 49.9%): Automated approval. Transaction is processed immediately with standard system logging.
+
+🟡 Medium Risk (50.0% – 84.9%): Step-up authentication required. Transaction is paused until OTP/MFA verification succeeds.
+
+🔴 High Risk (85.0% – 100.0%): Immediate hold. Funds are locked and an automated high-priority alert is routed to the admin dashboard for manual compliance review.
