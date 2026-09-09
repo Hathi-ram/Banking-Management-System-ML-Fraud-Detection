@@ -1,4 +1,5 @@
 Flask
+gunicorn
 mysql-connector-python
 pandas
 numpy
@@ -6,4 +7,3 @@ scikit-learn
 joblib
 openpyxl
 reportlab
-gunicorn
