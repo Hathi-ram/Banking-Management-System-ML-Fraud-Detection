@@ -51,7 +51,10 @@ from routes.report import report_bp
 
 app = Flask(__name__)
 
-app.secret_key = "banking_management_system_secret_key_2026"
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "development-secret-key"
+)
 
 
 # ==========================================================
