@@ -3,6 +3,6 @@
 DB_CONFIG = {
     "host": "localhost",
     "user": "root",
-    "password": "Hathiram@2003",
+    "password": "",
     "database": "bankingdb"
 }
