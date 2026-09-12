@@ -123,6 +123,7 @@ The Customer Management module allows administrators to:
 Customer information is stored securely in the MySQL database.
 
 ## Customer Management Workflow
+
 Admin Login
      │
      ▼
@@ -160,6 +161,30 @@ The Account Management module provides:
 
 Each account is linked to its respective customer.
 
+## Account Management Workflow
+
+## Customer
+   │
+   ▼
+Create Bank Account
+   │
+   ├── Savings Account
+   │
+   └── Current Account
+          │
+          ▼
+    Account Number
+          │
+          ▼
+    Initial Balance
+          │
+          ▼
+    Account Status
+          │
+          ▼
+      MySQL
+     Accounts
+
 ## 3. Transaction Management
 
 The system supports major banking transactions:
@@ -189,6 +214,80 @@ Supported transaction types include:
 - NEFT
 - RTGS
 - IMPS
+
+## Transaction Management Workflow
+## Deposit
+Customer Account
+       │
+       ▼
+Deposit Amount
+       │
+       ▼
+Validate Account
+       │
+       ▼
+Increase Balance
+       │
+       ▼
+Create Transaction
+       │
+       ▼
+ML Fraud Detection
+       │
+       ▼
+Store Result in MySQL
+## Withdrawal
+Customer Account
+       │
+       ▼
+Withdrawal Amount
+       │
+       ▼
+Validate Account
+       │
+       ▼
+Check Available Balance
+       │
+       ▼
+Decrease Balance
+       │
+       ▼
+Create Transaction
+       │
+       ▼
+ML Fraud Detection
+       │
+       ▼
+Store Result in MySQL
+## Transfer
+Source Account
+      │
+      ▼
+Transfer Amount
+      │
+      ▼
+Validate Source Account
+      │
+      ▼
+Check Balance
+      │
+      ▼
+Validate Destination Account
+      │
+      ▼
+Debit Source Account
+      │
+      ▼
+Credit Destination Account
+      │
+      ▼
+Create Transaction Record
+      │
+      ▼
+ML Fraud Detection
+      │
+      ▼
+Store ML Result
 
 ## 4. Machine Learning Fraud Detection
 
@@ -282,6 +381,57 @@ It displays:
 - High-risk transaction details
 - Recent ML analysis
 
+## Machine Learning Fraud Detection Workflow
+
+                 HISTORICAL TRANSACTION DATA
+                           │
+                           ▼
+                  DATA PREPROCESSING
+                           │
+                           ▼
+                  FEATURE ENGINEERING
+                           │
+                           ▼
+              ┌──────────────────────────┐
+              │ Transaction Features    │
+              │                          │
+              │ Amount                   │
+              │ Hour                    │
+              │ Day of Week             │
+              │ Day of Month             │
+              │ Month                   │
+              │ Weekend Indicator       │
+              │ Account Average Amount  │
+              │ Account Std Deviation   │
+              │ Transaction Count       │
+              │ Amount Deviation        │
+              │ Amount/Average Ratio    │
+              │ Amount Z-Score          │
+              │ Transaction Type        │
+              │ Transaction Status      │
+              └────────────┬─────────────┘
+                           │
+                           ▼
+                  CATEGORICAL ENCODING
+                           │
+                           ▼
+                   NUMERICAL SCALING
+                           │
+                           ▼
+                 RANDOM FOREST MODEL
+                           │
+                           ▼
+                    RISK PROBABILITY
+                           │
+                           ▼
+                 THRESHOLD EVALUATION
+                           │
+                 ┌─────────┴─────────┐
+                 │                   │
+              < 55%                >= 55%
+                 │                   │
+                 ▼                   ▼
+              NORMAL             SUSPICIOUS
 
 ## 7. Administrative Features
 
@@ -305,15 +455,9 @@ Administrative features include:
 - Reports
 - ML analytics
 
- ## 8. Activity Logging
 
- ## <img width="2874" height="1528" alt="Admin_Login_page" src="https://github.com/user-attachments/assets/40c73f06-a86e-40e1-bb22-e1e4f099b91f" />
 
-Important application activities are recorded through the activity logging module.
-
-This provides traceability between banking operations and Machine Learning analysis.
-
- ## 9. Real-Time MySQL Logging
+ ## 8. Real-Time MySQL Logging
 
 The application uses MySQL as its persistent database.
 
@@ -327,14 +471,153 @@ ML-related fields include:
 - ml_checked_at
 - ml_model_version
 
+
+
+## 9.MySQL Database Workflow
+
+                    MYSQL DATABASE
+                          │
+       ┌──────────────────┼──────────────────┐
+       │                  │                  │
+       ▼                  ▼                  ▼
+   Customers           Accounts          Employees
+       │                  │
+       │                  ▼
+       │             Transactions
+       │                  │
+       │                  ▼
+       │             ML Results
+       │
+       ├──────────► Loans
+       │
+       └──────────► Cards
+                          │
+                          ▼
+                    Activity Logs
+
 ## 10.LOAN 
 
 ## <img width="586" height="1516" alt="Loan List_page" src="https://github.com/user-attachments/assets/f0aa1689-e3a0-43d7-8ec4-bdd933b6f8eb" />
 
+## Loan Management Workflow
+Customer
+   │
+   ▼
+Loan Application
+   │
+   ▼
+Loan Details
+   │
+   ▼
+Loan Amount
+   │
+   ▼
+Loan Status
+   │
+   ├── Approved
+   ├── Rejected
+   └── Closed
+          │
+          ▼
+       MySQL
+        Loans
+
 ## 11. CARD
 ## <img width="430" height="1268" alt="Card List_page" src="https://github.com/user-attachments/assets/bfa5bb48-53e4-4bea-acb9-e494a9ac78d0" />
+
+## Card Management Workflow
+Customer
+   │
+   ▼
+Card Management
+   │
+   ├── Issue Card
+   │
+   ├── View Card
+   │
+   ├── Debit Card
+   │
+   └── Credit Card
+          │
+          ▼
+     Card Status
+          │
+          ├── Active
+          ├── Blocked
+          └── Expired
+                  │
+                  ▼
+                MySQL
 
 ## 12.Employees
 
 ## <img width="728" height="1388" alt="Employee List_page" src="https://github.com/user-attachments/assets/72f630e2-b448-42ac-b2f3-1c416893a9be" />
+## Employee Management Workflow
+Admin
+ │
+ ▼
+Employee Management
+ │
+ ├── Add Employee
+ │
+ ├── View Employee
+ │
+ ├── Update Employee
+ │
+ └── Manage Employee Information
+          │
+          ▼
+       MySQL
+       Employees
 
+## 13. Activity Logging
+
+ ## <img width="2874" height="1528" alt="Admin_Login_page" src="https://github.com/user-attachments/assets/40c73f06-a86e-40e1-bb22-e1e4f099b91f" />
+
+Important application activities are recorded through the activity logging module.
+
+This provides traceability between banking operations and Machine Learning analysis.
+
+## Activity Logging Workflow
+
+Admin Action
+     │
+     ▼
+Flask Backend
+     │
+     ▼
+Perform Operation
+     │
+     ├── Customer
+     ├── Account
+     ├── Transaction
+     ├── Loan
+     ├── Card
+     └── Employee
+             │
+             ▼
+        Activity Log
+             │
+             ▼
+           MySQL
+
+
+## 14. Dashboard & Analytics Workflow
+
+                    MYSQL
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+          ▼                       ▼
+   Banking Statistics       ML Statistics
+          │                       │
+          ├── Customers           ├── Analyzed
+          ├── Accounts            ├── Normal
+          ├── Transactions        ├── Suspicious
+          ├── Loans              ├── Low Risk
+          ├── Cards              ├── Medium Risk
+          └── Employees          └── High Risk
+                  │                       │
+                  └───────────┬───────────┘
+                              ▼
+                         DASHBOARD
