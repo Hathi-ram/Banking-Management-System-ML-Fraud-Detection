@@ -66,7 +66,39 @@ The application provides normal banking operations through a Flask web interface
 
 The system follows this workflow:
 
-## The Machine Learning module uses a Random Forest Classifier to analyze transaction-related features and produce:
+User
+ │
+ ▼
+Banking Web Interface
+ │
+ ▼
+Flask Backend
+ │
+ ├───────────────► MySQL Database
+ │
+ ▼
+Transaction Feature Generation
+ │
+ ▼
+ML Fraud Detection Model
+ │
+ ▼
+Risk Score
+ │
+ ▼
+Normal / Suspicious
+ │
+ ▼
+Risk Level
+ │
+ ▼
+Store ML Result in MySQL
+ │
+ ▼
+Dashboard / ML Analytics / Reports
+
+
+The Machine Learning module uses a Random Forest Classifier to analyze transaction-related features and produce:
 
 Fraud/suspicious prediction
 Risk score
@@ -74,8 +106,9 @@ Risk percentage
 Risk level
 ML model version
 ML analysis timestamp
-🚀 Key Features & Capabilities
-👤 1. Customer Management
+
+## Key Features & Capabilities
+##  1. Customer Management
 
 The Customer Management module allows administrators to:
 
@@ -88,7 +121,7 @@ Manage customer-related banking information
 
 Customer information is stored securely in the MySQL database.
 
-💳 2. Account Management
+## 2. Account Management
 
 The Account Management module provides:
 
@@ -101,7 +134,7 @@ Account search and viewing
 
 Each account is linked to its respective customer.
 
-💰 3. Transaction Management
+## 3. Transaction Management
 
 The system supports major banking transactions:
 
@@ -130,7 +163,8 @@ UPI
 NEFT
 RTGS
 IMPS
-🤖 4. Machine Learning Fraud Detection
+
+## 4. Machine Learning Fraud Detection
 
 The major feature of this project is the integrated Machine Learning fraud detection module.
 
@@ -166,7 +200,8 @@ Amount-to-average ratio
 Amount z-score
 Transaction type
 Transaction status
-🧠 Random Forest Model
+
+## Random Forest Model
 
 The fraud detection module uses a Random Forest Classifier.
 
@@ -191,7 +226,9 @@ Risk Score
 Threshold Evaluation
         ↓
 Normal / Suspicious
-📊 5. Risk Scoring
+
+
+## 5. Risk Scoring
 
 Each analyzed transaction receives a Machine Learning risk score.
 
@@ -214,7 +251,7 @@ The classification threshold used by the system is:
 
 A transaction with a model score below the classification threshold is classified as Normal, while a transaction meeting or exceeding the threshold is classified as Suspicious.
 
-📈 6. ML Analytics Dashboard
+## 6. ML Analytics Dashboard
 
 The ML Analytics module provides an overview of transaction risk.
 
@@ -239,7 +276,9 @@ Model: Random Forest
 Version: v1.0
 Features: 24
 Threshold: 55%
-🛡️ 7. Administrative Features
+
+
+## 7. Administrative Features
 
 The system includes administrative functionality for managing the banking application.
 
@@ -257,7 +296,8 @@ Employee management
 Activity logs
 Reports
 ML analytics
-📝 8. Activity Logging
+
+ ## 8. Activity Logging
 
 Important application activities are recorded through the activity logging module.
 
@@ -273,7 +313,7 @@ Risk Level: Low
 
 This provides traceability between banking operations and Machine Learning analysis.
 
-🗄️ 9. Real-Time MySQL Logging
+ ## 9. Real-Time MySQL Logging
 
 The application uses MySQL as its persistent database.
 
@@ -308,8 +348,10 @@ Transaction Processing
 Machine Learning
   ↓
 ML Result Persistence
-🏗️ Methodology & System Architecture
-1. Overall System Architecture
+
+### Methodology & System Architecture
+
+## 1. Overall System Architecture
 
 The complete application follows a full-stack architecture where the user interacts with the Flask web application.
 
@@ -321,7 +363,7 @@ Figure 1: Overall system architecture showing User/UI → Flask Backend → ML I
 
 The system can operate with a local MySQL database for development and can be adapted to a cloud-hosted MySQL database for deployment.
 
-🔬 2. Machine Learning Methodology
+## 2. Machine Learning Methodology
 
 The Machine Learning workflow consists of several stages.
 
@@ -379,7 +421,7 @@ ML Model Training & Inference Workflow
 
 Figure 2: Machine Learning workflow from preprocessing and feature engineering to Random Forest prediction, threshold evaluation, and real-time inference.
 
-🗃️ 3. Database Architecture
+##  3. Database Architecture
 
 The MySQL database stores the main banking entities and their relationships.
 
@@ -407,15 +449,15 @@ Entity-Relationship Diagram
 
 Figure 3: Entity-Relationship diagram showing the relationships between Customers, Accounts, Transactions, Employees, and ML fraud analysis records.
 
-🖥️ Screenshots & UI Showcase
+##  Screenshots & UI Showcase
 
 The following screenshots demonstrate the working application.
 
-📊 Banking Dashboard
+## Banking Dashboard
 
 Figure 4: Main banking dashboard showing banking statistics, transaction information, and ML fraud detection summary.
 
-🚨 ML Fraud Detection
+## ML Fraud Detection
 
 Figure 5: Transaction analysis showing ML prediction, risk score, and risk level.
 
@@ -424,15 +466,17 @@ Example:
 Prediction : Suspicious
 Risk Score : 95.21%
 Risk Level : High
-🗄️ MySQL Workbench
+
+##  MySQL Workbench
 
 Figure 6: MySQL Workbench showing transaction records and stored Machine Learning prediction and risk information.
 
-📈 ML Analytics Report
+## ML Analytics Report
 
 Figure 7: ML Analytics dashboard showing analyzed transactions, risk distribution, and high-risk transactions.
 
-📁 Project Structure
+### Project Structure
+
 Banking-Management-System-ML-Fraud-Detection/
 │
 ├── app.py
@@ -486,14 +530,17 @@ Banking-Management-System-ML-Fraud-Detection/
     ├── ml_fraud_detection.png
     ├── ml_analytics_report.png
     └── mysql_workbench_proof.png
-⚙️ Installation & Local Setup
-1. Clone the Repository
+
+
+## 3.Installation & Local Setup
+
+## 1. Clone the Repository
 git clone https://github.com/YOUR_USERNAME/Banking-Management-System-ML-Fraud-Detection.git
 
 Move into the project directory:
-
 cd Banking-Management-System-ML-Fraud-Detection
-2. Create a Virtual Environment
+
+## 2. Create a Virtual Environment
 Windows
 python -m venv venv
 
@@ -506,20 +553,8 @@ python3 -m venv venv
 Activate it:
 
 source venv/bin/activate
-📦 3. Install Dependencies
 
-Install all required Python packages:
-
-pip install -r requirements.txt
-
-If requirements.txt does not exist yet:
-
-pip install Flask mysql-connector-python pandas numpy scikit-learn joblib openpyxl reportlab gunicorn
-
-Then:
-
-pip freeze > requirements.txt
-🗄️ 4. Configure MySQL
+## 4.Configure MySQL
 
 Install and open MySQL Server and MySQL Workbench.
 
@@ -543,32 +578,11 @@ Cards
 Employees
 Activity Logs
 
-ML transaction fields are stored in the Transactions table.
-
-Example:
-
-ALTER TABLE Transactions
-ADD COLUMN ml_prediction TINYINT DEFAULT 0,
-ADD COLUMN ml_risk_score DECIMAL(6,5) DEFAULT NULL,
-ADD COLUMN ml_risk_level VARCHAR(20) DEFAULT 'Low',
-ADD COLUMN ml_checked_at DATETIME DEFAULT NULL,
-ADD COLUMN ml_model_version VARCHAR(50) DEFAULT 'v1.0';
-🔐 5. Configure Database Credentials
+##5. Configure Database Credentials
 
 Configure the MySQL connection using environment variables rather than committing passwords to GitHub.
 
-Example:
-
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=BankingDB
-DB_PORT=3306
-SECRET_KEY=your_secret_key
-
-Do not commit .env files or database passwords to the repository.
-
-▶️ 6. Run the Application
+## 6. Run the Application
 
 Start the Flask application:
 
@@ -580,7 +594,7 @@ http://127.0.0.1:5000
 
 Open the URL in a web browser.
 
-🧪 7. Test the Application
+## 7. Test the Application
 
 After starting the application, test the following workflow:
 
@@ -608,7 +622,7 @@ Reports
 
 Verify the corresponding records in MySQL Workbench.
 
-📊 Machine Learning Model Performance
+##  Machine Learning Model Performance
 
 The Random Forest model was evaluated using a held-out test dataset.
 
@@ -626,63 +640,7 @@ The system uses a 55% operational classification threshold for determining wheth
 
 Note: Overall accuracy should not be interpreted as "98% fraud detection accuracy." Fraud-class precision, recall, and F1-score provide additional information about suspicious transaction detection performance.
 
-🔄 End-to-End Transaction Workflow
-
-The complete transaction workflow is:
-
-                 ┌─────────────────────┐
-                 │   User Creates      │
-                 │     Transaction     │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │   Flask Backend     │
-                 │ Transaction Route   │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │ Feature Generation  │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │ Random Forest Model │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │    Risk Score       │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │ Threshold = 55%     │
-                 └──────────┬──────────┘
-                            │
-                   ┌────────┴────────┐
-                   ▼                 ▼
-                Normal           Suspicious
-                   │                 │
-                   └────────┬────────┘
-                            ▼
-                 ┌─────────────────────┐
-                 │   Risk Level       │
-                 │ Low / Medium / High│
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │    MySQL Database   │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │ Dashboard / Reports │
-                 │    ML Analytics     │
-                 └─────────────────────┘
-🌐 Deployment
+## Deployment
 
 The application is designed to run locally using Flask and MySQL.
 
@@ -698,19 +656,7 @@ Local MySQL
    ↓
 Machine Learning Model
 
-A cloud deployment architecture can be:
-
-Browser
-   ↓
-Cloud Flask Application
-   ↓
-Cloud MySQL
-   ↓
-Machine Learning Model
-
-Cloud deployment can be configured separately depending on the hosting provider and database requirements.
-
-🎥 Project Demonstration
+## Project Demonstration
 
 A complete end-to-end demonstration video can be provided to show:
 
@@ -728,7 +674,8 @@ Suspicious transaction detection
 ML analytics
 Reports
 MySQL Workbench database updates
-🔒 Security Considerations
+
+## Security Considerations
 
 For production deployment, the following improvements should be applied:
 
@@ -742,7 +689,8 @@ Use appropriate database permissions
 Avoid exposing sensitive banking information
 Secure ML model files and configuration
 Use a production WSGI server
-📌 Future Enhancements
+
+## Future Enhancements
 
 Possible future improvements include:
 
@@ -756,7 +704,8 @@ Model retraining pipeline
 Authentication improvements
 Role-based access control
 API integration
-👨‍💻 Project Summary
+
+## Project Summary
 
 This project demonstrates the integration of full-stack web development, relational database management, and Machine Learning in a banking use case.
 
@@ -782,7 +731,8 @@ into a single end-to-end application.
 
 The main contribution of the project is the integration of a Machine Learning transaction risk assessment pipeline directly into the banking transaction workflow, allowing transactions to be analyzed and classified as Normal or Suspicious with an associated risk score and risk level.
 
-⭐ Key Technologies
+## Key Technologies
+
 Python
 Flask
 MySQL
@@ -795,7 +745,8 @@ CSS3
 Bootstrap
 Chart.js
 MySQL Workbench
-📄 License
+
+## License
 
 This project is currently provided for educational and portfolio purposes.
 
