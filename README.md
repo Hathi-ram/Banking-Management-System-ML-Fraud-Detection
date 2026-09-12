@@ -1,12 +1,17 @@
-# 🏦 Banking Management System with Machine Learning Fraud Detection
+#### Banking Management System with Machine Learning Fraud Detection
 
-A full-stack **Banking Management System** built with **Flask, Python, MySQL, and Scikit-Learn**, integrated with a **Random Forest-based Machine Learning fraud detection module**.
+A full-stack Banking Management System built using Python, Flask, MySQL, HTML/CSS, Bootstrap, and Scikit-Learn, integrated with a Random Forest-based Machine Learning transaction fraud detection system.
 
-The system manages core banking operations such as customers, accounts, deposits, withdrawals, transfers, loans, cards, employees, reports, and activity logs while automatically analyzing transactions and generating **fraud predictions, risk scores, and risk levels**.
+The application manages the complete banking workflow including:
 
----
+### <img width="2878" height="1536" alt="HomeScreen_page_1" src="https://github.com/user-attachments/assets/e487790a-4be2-4f6e-b015-0aa02f23eeab" />
 
-## 🛠️ Tech Stack
+### <img width="2880" height="1524" alt="HomeScreen_page_2" src="https://github.com/user-attachments/assets/ea577444-122e-48b3-beb0-fa92e0aab8eb" />
+
+### <img width="2880" height="1534" alt="HomeScreen_page_3" src="https://github.com/user-attachments/assets/c081195b-3f9c-4729-a6c5-0f8363209cd0" />
+
+
+##  Tech Stack
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black?logo=flask)
@@ -38,7 +43,7 @@ The system manages core banking operations such as customers, accounts, deposits
 
 ---
 
-# 📌 Problem Statement
+## Problem Statement
 
 Traditional banking management systems primarily focus on storing customer information and processing transactions.
 
