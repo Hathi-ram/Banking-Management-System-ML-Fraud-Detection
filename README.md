@@ -2,6 +2,11 @@
 
 A full-stack Banking Management System built using Python, Flask, MySQL, HTML/CSS, Bootstrap, and Scikit-Learn, integrated with a Random Forest-based Machine Learning transaction fraud detection system.
 
+###  Watch Full Demo Videos
+
+[![Banking System Demo]()](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+*Click the image above to watch the full system walkthrough.*
+
 The application manages the complete banking workflow including:
 
 ### <img width="2878" height="1536" alt="HomeScreen_page_1" src="https://github.com/user-attachments/assets/e487790a-4be2-4f6e-b015-0aa02f23eeab" />
@@ -406,24 +411,24 @@ This provides traceability between banking operations and Machine Learning analy
 
 The ML Analytics page provides:
 
-Model name
-Model version
-Number of features
-Classification threshold
-Transactions analyzed
-Normal transactions
-Suspicious transactions
-Low-risk transactions
-Medium-risk transactions
-High-risk transactions
-High-risk transaction details
-Recent ML analysis
+- Model name
+- Model version
+- Number of features
+- Classification threshold
+- Transactions analyzed
+- Normal transactions
+- Suspicious transactions
+- Low-risk transactions
+- Medium-risk transactions
+- High-risk transactions
+- High-risk transaction details
+- Recent ML analysis
 
-Current model configuration:
-Model       : Random Forest
-Version     : v1.0
-Features    : 24
-Threshold   : 55%
+- Current model configuration:
+- Model       : Random Forest
+- Version     : v1.0
+- Features    : 24
+- Threshold   : 55%
 
 ## 16.Report
 ## <img width="2852" height="1538" alt="Banking Reports Dashboard_page" src="https://github.com/user-attachments/assets/744593c1-21c9-4a2d-aa5d-02d6a189fa54" />
@@ -435,11 +440,11 @@ Threshold   : 55%
 
 The Random Forest model was evaluated using a held-out test dataset.
 
-Metric	Score
-Accuracy	98.0%
-Precision	76.0%
-Recall	47.0%
-F1-Score	58.0%
+- Metric	Score
+- Accuracy	98.0%
+- Precision	76.0%
+- Recall	47.0%
+- F1-Score	58.0%
 
 The operational classification threshold is 55%.
 
@@ -562,10 +567,10 @@ Possible future improvements include:
 
 ## Project Summary
 
-This project demonstrates the integration of full-stack web development, relational database management, banking operations, and Machine Learning into a single application.
+- This project demonstrates the integration of full-stack web development, relational database management, banking operations, and Machine Learning into a single application.
 
 The system uses:
 
-Python + Flask + MySQL + Scikit-Learn + Random Forest + Pandas + HTML/CSS + Bootstrap
+- Python + Flask + MySQL + Scikit-Learn + Random Forest + Pandas + HTML/CSS + Bootstrap
 
-The main contribution is the integration of a Machine Learning transaction risk assessment pipeline directly into the banking transaction workflow.
+- The main contribution is the integration of a Machine Learning transaction risk assessment pipeline directly into the banking transaction workflow.
