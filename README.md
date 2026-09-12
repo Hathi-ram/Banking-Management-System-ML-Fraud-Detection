@@ -123,21 +123,8 @@ The Customer Management module allows administrators to:
 Customer information is stored securely in the MySQL database.
 
 ## Customer Management Workflow
-Admin Login
-    │
-    ▼
-Customer Management
-    ├── Add Customer
-    ├── View Customer
-    ├── Search Customer
-    ├── Update Customer
-    └── Delete Customer
-    │
-    ▼
-MySQL Customers
-    │
-    ▼
-Customer ID Created
+## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/f21ffbf4-dfb2-43dd-8f9b-c2335e90923b" />
+
 
 ## 2. Account Management
 
@@ -157,27 +144,8 @@ Each account is linked to its respective customer.
 
 ## Account Management Workflow
 
-## Customer
-   │
-   ▼
-Create Bank Account
-   │
-   ├── Savings Account
-   │
-   └── Current Account
-          │
-          ▼
-    Account Number
-          │
-          ▼
-    Initial Balance
-          │
-          ▼
-    Account Status
-          │
-          ▼
-      MySQL
-     Accounts
+## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/0150b012-f97b-4979-947f-6c1613033141" />
+
 
 ## 3. Transaction Management
 
@@ -210,78 +178,7 @@ Supported transaction types include:
 - IMPS
 
 ## Transaction Management Workflow
-## Deposit
-Customer Account
-       │
-       ▼
-Deposit Amount
-       │
-       ▼
-Validate Account
-       │
-       ▼
-Increase Balance
-       │
-       ▼
-Create Transaction
-       │
-       ▼
-ML Fraud Detection
-       │
-       ▼
-Store Result in MySQL
-## Withdrawal
-Customer Account
-       │
-       ▼
-Withdrawal Amount
-       │
-       ▼
-Validate Account
-       │
-       ▼
-Check Available Balance
-       │
-       ▼
-Decrease Balance
-       │
-       ▼
-Create Transaction
-       │
-       ▼
-ML Fraud Detection
-       │
-       ▼
-Store Result in MySQL
-## Transfer
-Source Account
-      │
-      ▼
-Transfer Amount
-      │
-      ▼
-Validate Source Account
-      │
-      ▼
-Check Balance
-      │
-      ▼
-Validate Destination Account
-      │
-      ▼
-Debit Source Account
-      │
-      ▼
-Credit Destination Account
-      │
-      ▼
-Create Transaction Record
-      │
-      ▼
-ML Fraud Detection
-      │
-      ▼
-Store ML Result
+## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/7dcce8da-7a1d-4873-87b2-5365a463d76c" />
 
 ## 4. Machine Learning Fraud Detection
 
@@ -465,101 +362,28 @@ ML-related fields include:
 
 
 ## 9.MySQL Database Workflow
+## <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/48760870-2a60-4591-9d21-5436f1644057" />
 
-                    MYSQL DATABASE
-                          │
-       ┌──────────────────┼──────────────────┐
-       │                  │                  │
-       ▼                  ▼                  ▼
-   Customers           Accounts          Employees
-       │                  │
-       │                  ▼
-       │             Transactions
-       │                  │
-       │                  ▼
-       │             ML Results
-       │
-       ├──────────► Loans
-       │
-       └──────────► Cards
-                          │
-                          ▼
-                    Activity Logs
 
 ## 10.LOAN 
 
 ## <img width="586" height="1516" alt="Loan List_page" src="https://github.com/user-attachments/assets/f0aa1689-e3a0-43d7-8ec4-bdd933b6f8eb" />
 
 ## Loan Management Workflow
-Customer
-   │
-   ▼
-Loan Application
-   │
-   ▼
-Loan Details
-   │
-   ▼
-Loan Amount
-   │
-   ▼
-Loan Status
-   │
-   ├── Approved
-   ├── Rejected
-   └── Closed
-          │
-          ▼
-       MySQL
-        Loans
+## <img width="1024" height="735" alt="image" src="https://github.com/user-attachments/assets/9ad77a19-3ce4-4fa3-8d75-d89258390d72" />
 
 ## 11. CARD
 ## <img width="430" height="1268" alt="Card List_page" src="https://github.com/user-attachments/assets/bfa5bb48-53e4-4bea-acb9-e494a9ac78d0" />
 
 ## Card Management Workflow
-Customer
-   │
-   ▼
-Card Management
-   │
-   ├── Issue Card
-   │
-   ├── View Card
-   │
-   ├── Debit Card
-   │
-   └── Credit Card
-          │
-          ▼
-     Card Status
-          │
-          ├── Active
-          ├── Blocked
-          └── Expired
-                  │
-                  ▼
-                MySQL
+## <img width="1024" height="735" alt="image" src="https://github.com/user-attachments/assets/a4d38161-590a-4369-a764-7221aa7b0cda" />
 
 ## 12.Employees
 
 ## <img width="728" height="1388" alt="Employee List_page" src="https://github.com/user-attachments/assets/72f630e2-b448-42ac-b2f3-1c416893a9be" />
 ## Employee Management Workflow
-Admin
- │
- ▼
-Employee Management
- │
- ├── Add Employee
- │
- ├── View Employee
- │
- ├── Update Employee
- │
- └── Manage Employee Information
-          │
-          ▼
-       MySQL
-       Employees
+## <img width="1024" height="735" alt="image" src="https://github.com/user-attachments/assets/3670e4d3-10e0-45d7-b538-55b65f20d1cc" />
+
 
 ## 13. Activity Logging
 
@@ -571,47 +395,12 @@ This provides traceability between banking operations and Machine Learning analy
 
 ## Activity Logging Workflow
 
-Admin Action
-     │
-     ▼
-Flask Backend
-     │
-     ▼
-Perform Operation
-     │
-     ├── Customer
-     ├── Account
-     ├── Transaction
-     ├── Loan
-     ├── Card
-     └── Employee
-             │
-             ▼
-        Activity Log
-             │
-             ▼
-           MySQL
 ## <img width="674" height="1504" alt="Banking Activity Log_page" src="https://github.com/user-attachments/assets/16f900f1-13a6-43b6-b50c-077c33db54bb" />
 
 ## 14. Dashboard & Analytics Workflow
+## <img width="1024" height="735" alt="image" src="https://github.com/user-attachments/assets/35cdefb7-95e6-40c2-bd16-5a1b0b714fe5" />
 
-                    MYSQL
-                      │
-          ┌───────────┴───────────┐
-          │                       │
-          ▼                       ▼
-   Banking Statistics       ML Statistics
-          │                       │
-          ├── Customers           ├── Analyzed
-          ├── Accounts            ├── Normal
-          ├── Transactions        ├── Suspicious
-          ├── Loans              ├── Low Risk
-          ├── Cards              ├── Medium Risk
-          └── Employees          └── High Risk
-                  │                       │
-                  └───────────┬───────────┘
-                              ▼
-                         DASHBOARD
+              
 
 ## 15. ML Analytics Dashboard
 
@@ -639,29 +428,8 @@ Threshold   : 55%
 ## 16.Report
 ## <img width="2852" height="1538" alt="Banking Reports Dashboard_page" src="https://github.com/user-attachments/assets/744593c1-21c9-4a2d-aa5d-02d6a189fa54" />
 ## Reports Workflow
-MySQL Database
-      │
-      ▼
-Reports Module
-      │
-      ├───────────────┐
-      │               │
-      ▼               ▼
-Banking Reports     ML Reports
-      │               │
-      ├─ Customers    ├─ Analyzed
-      ├─ Accounts     ├─ Normal
-      ├─ Transactions ├─ Suspicious
-      ├─ Employees    ├─ Low Risk
-      ├─ Cards        ├─ Medium Risk
-      ├─ Balance      └─ High Risk
-      └─ Loans
-             │
-             ▼
-       Export Reports
-          │       │
-          ▼       ▼
-        Excel     PDF
+## <img width="1024" height="735" alt="image" src="https://github.com/user-attachments/assets/8fda439c-6e0d-41c8-bb7a-c00c33a17e78" />
+
 
 ## Machine Learning Model Performance
 
@@ -678,61 +446,8 @@ The operational classification threshold is 55%.
 Important: The 98% accuracy should not be described as "98% fraud detection accuracy." Precision, recall, and F1-score provide a more meaningful view of suspicious-transaction classification performance.
 
 ## Project Structure
+## <img width="1024" height="735" alt="image" src="https://github.com/user-attachments/assets/e0048f45-1ba5-44b4-a059-aaa012bffdc3" />
 
-Banking-Management-System-ML-Fraud-Detection/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-│
-├── models/
-│   └── database.py
-│
-├── routes/
-│   ├── customer.py
-│   ├── account.py
-│   ├── transaction.py
-│   ├── loan.py
-│   ├── card.py
-│   ├── employee.py
-│   ├── activity.py
-│   └── admin.py
-│
-├── ml_service/
-│   ├── __init__.py
-│   ├── fraud_detector.py
-│   ├── fraud_model.pkl
-│   ├── scaler.pkl
-│   ├── encoder.pkl
-│   ├── feature_columns.pkl
-│   └── threshold.pkl
-│
-├── templates/
-│   ├── login.html
-│   ├── dashboard.html
-│   ├── customers.html
-│   ├── accounts.html
-│   ├── transactions.html
-│   ├── loans.html
-│   ├── cards.html
-│   ├── employees.html
-│   ├── reports.html
-│   └── ml_analytics.html
-│
-├── static/
-│   ├── css/
-│   └── js/
-│
-└── docs/
-    ├── system_architecture.png
-    ├── ml_pipeline.png
-    ├── er_diagram.png
-    ├── complete_system_workflow.png
-    ├── dashboard_preview.png
-    ├── ml_fraud_detection.png
-    ├── ml_analytics_report.png
-    └── mysql_workbench_proof.png
 
 ## Installation & Local Setup
 
