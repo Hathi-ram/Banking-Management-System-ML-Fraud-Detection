@@ -435,9 +435,6 @@ It displays:
 
 ## 7. Administrative Features
 
-## <img width="674" height="1504" alt="Banking Activity Log_page" src="https://github.com/user-attachments/assets/16f900f1-13a6-43b6-b50c-077c33db54bb" />
-
-
 The system includes administrative functionality for managing the banking application.
 
 Administrative features include:
@@ -600,7 +597,7 @@ Perform Operation
              │
              ▼
            MySQL
-
+## <img width="674" height="1504" alt="Banking Activity Log_page" src="https://github.com/user-attachments/assets/16f900f1-13a6-43b6-b50c-077c33db54bb" />
 
 ## 14. Dashboard & Analytics Workflow
 
@@ -621,3 +618,124 @@ Perform Operation
                   └───────────┬───────────┘
                               ▼
                          DASHBOARD
+
+## 15. ML Analytics Dashboard
+
+The ML Analytics page provides:
+
+Model name
+Model version
+Number of features
+Classification threshold
+Transactions analyzed
+Normal transactions
+Suspicious transactions
+Low-risk transactions
+Medium-risk transactions
+High-risk transactions
+High-risk transaction details
+Recent ML analysis
+
+Current model configuration:
+Model       : Random Forest
+Version     : v1.0
+Features    : 24
+Threshold   : 55%
+
+## 16.Report
+## <img width="2852" height="1538" alt="Banking Reports Dashboard_page" src="https://github.com/user-attachments/assets/744593c1-21c9-4a2d-aa5d-02d6a189fa54" />
+## Reports Workflow
+MySQL Database
+      │
+      ▼
+Reports Module
+      │
+      ├───────────────┐
+      │               │
+      ▼               ▼
+Banking Reports     ML Reports
+      │               │
+      ├─ Customers    ├─ Analyzed
+      ├─ Accounts     ├─ Normal
+      ├─ Transactions ├─ Suspicious
+      ├─ Employees    ├─ Low Risk
+      ├─ Cards        ├─ Medium Risk
+      ├─ Balance      └─ High Risk
+      └─ Loans
+             │
+             ▼
+       Export Reports
+          │       │
+          ▼       ▼
+        Excel     PDF
+
+## Machine Learning Model Performance
+
+The Random Forest model was evaluated using a held-out test dataset.
+
+Metric	Score
+Accuracy	98.0%
+Precision	76.0%
+Recall	47.0%
+F1-Score	58.0%
+
+The operational classification threshold is 55%.
+
+Important: The 98% accuracy should not be described as "98% fraud detection accuracy." Precision, recall, and F1-score provide a more meaningful view of suspicious-transaction classification performance.
+
+## Project Structure
+
+Banking-Management-System-ML-Fraud-Detection/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+│
+├── models/
+│   └── database.py
+│
+├── routes/
+│   ├── customer.py
+│   ├── account.py
+│   ├── transaction.py
+│   ├── loan.py
+│   ├── card.py
+│   ├── employee.py
+│   ├── activity.py
+│   └── admin.py
+│
+├── ml_service/
+│   ├── __init__.py
+│   ├── fraud_detector.py
+│   ├── fraud_model.pkl
+│   ├── scaler.pkl
+│   ├── encoder.pkl
+│   ├── feature_columns.pkl
+│   └── threshold.pkl
+│
+├── templates/
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── customers.html
+│   ├── accounts.html
+│   ├── transactions.html
+│   ├── loans.html
+│   ├── cards.html
+│   ├── employees.html
+│   ├── reports.html
+│   └── ml_analytics.html
+│
+├── static/
+│   ├── css/
+│   └── js/
+│
+└── docs/
+    ├── system_architecture.png
+    ├── ml_pipeline.png
+    ├── er_diagram.png
+    ├── complete_system_workflow.png
+    ├── dashboard_preview.png
+    ├── ml_fraud_detection.png
+    ├── ml_analytics_report.png
+    └── mysql_workbench_proof.png
