@@ -739,3 +739,124 @@ Banking-Management-System-ML-Fraud-Detection/
     ├── ml_fraud_detection.png
     ├── ml_analytics_report.png
     └── mysql_workbench_proof.png
+
+## Installation & Local Setup
+
+## 1. Clone Repository
+git clone https://github.com/Hathi-ram/Banking-Management-System-ML-Fraud-Detection.git
+cd Banking-Management-System-ML-Fraud-Detection
+## 2. Create Virtual Environment
+Windows
+- python -m venv venv
+- venv\Scripts\activate
+- Linux / macOS
+- python3 -m venv venv
+- source venv/bin/activate
+## 3. Install Dependencies
+pip install -r requirements.txt
+## 4. Configure MySQL
+
+Create the database:
+
+CREATE DATABASE BankingDB;
+
+- Then configure the required banking tables.
+
+The database contains:
+
+- Customers
+- Accounts
+- Transactions
+- Loans
+- Cards
+- Employees
+- Activity Logs
+- ML Transaction Results
+## 5. Configure Database Credentials
+
+Use environment variables for database credentials.
+
+Do not commit MySQL passwords or secret keys to GitHub.
+
+## 6. Run Application
+python app.py
+
+Open:
+
+http://127.0.0.1:5000/
+
+## Methodology Diagrams
+## <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/9119b1bd-4d98-48bc-8fe5-ee8381bdbace" />
+
+## Security Considerations
+
+For production deployment, the following improvements should be implemented:
+
+- Store credentials in environment variables
+- Use secure password hashing
+- Enable HTTPS
+- Configure secure Flask sessions
+- Validate and sanitize inputs
+- Restrict database permissions
+- Protect sensitive banking information
+- Secure ML model files
+- Use a production WSGI server
+- Implement stronger authentication and authorization
+
+## Future Enhancements
+
+Possible future improvements include:
+
+- Cloud deployment
+- Advanced fraud detection models
+- Real-time fraud alerts
+- Email/SMS notifications
+- Fraud investigation interface
+- Customer behavior analysis
+- Automated model retraining
+- Improved authentication
+- Advanced role-based access control
+- REST API integration
+
+## Project Highlights
+- Banking Management
+- Customer Management
+- Account Management
+- Deposit
+- Withdrawal
+- Transfer
+- Loan Management
+- Card Management
+- Employee Management
+- Activity Logging
+- Reports
+- Machine Learning
+- Transaction feature engineering
+- Data preprocessing
+- Categorical encoding
+- Numerical scaling
+- Random Forest classification
+- Risk score generation
+- Threshold-based classification
+- Risk-level categorization
+- Real-time transaction inference
+- ML result persistence
+
+## Analytics
+- Banking dashboard
+- ML analytics dashboard
+- Risk distribution
+- High-risk transaction monitoring
+- Recent ML analysis
+- Excel reports
+- PDF reports
+
+## Project Summary
+
+This project demonstrates the integration of full-stack web development, relational database management, banking operations, and Machine Learning into a single application.
+
+The system uses:
+
+Python + Flask + MySQL + Scikit-Learn + Random Forest + Pandas + HTML/CSS + Bootstrap
+
+The main contribution is the integration of a Machine Learning transaction risk assessment pipeline directly into the banking transaction workflow.
