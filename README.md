@@ -192,34 +192,46 @@ The major feature of this project is the integrated Machine Learning fraud detec
 
 ## Random Forest Model
 
-The fraud detection module uses a Random Forest Classifier.
+The project uses a Random Forest Classifier for transaction classification.
 
-The trained model is integrated directly into the Flask application for transaction-level inference.
+The model uses transaction and account-behavior features to estimate the likelihood that a transaction is suspicious.
 
-- The ML pipeline contains:
+- Feature categories
+- Transaction Features
+- Amount
+- Transaction type
+- Transaction status
+- Transaction hour
+- Day of week
+- Day of month
+- Month
+- Weekend indicator
+- Account Behavioral Features
+- Account average transaction amount
+- Account standard deviation
+- Account transaction count
+- Amount deviation
+- Amount-to-average ratio
+- Amount z-score
+- Encoded Features
 
-- Raw Transaction Data
-        ↓
-- Data Preprocessing
-        ↓
-- Feature Engineering
-        ↓
-- Numerical Scaling
-        ↓
-- Categorical Encoding
-        ↓
-- Random Forest Classifier
-        ↓
-- Risk Score
-        ↓
-- Threshold Evaluation
-        ↓
-- Normal / Suspicious
+Categorical values are converted into numerical features before being passed to the model.
 
 
 ## 5. Risk Scoring
 
-Each analyzed transaction receives a Machine Learning risk score.
+The system generates two related outputs.
+
+- Transaction Classification
+ML Score	Classification
+< 55%	Normal
+>= 55%	Suspicious
+
+- Risk Level
+Risk Score	Risk Level
+< 40%	Low
+40% – 69.99%	Medium
+>= 70%	High
 
 
 
@@ -245,6 +257,7 @@ It displays:
 
 ## 7. Administrative Features
 
+## <img width="674" height="1504" alt="Banking Activity Log_page" src="https://github.com/user-attachments/assets/16f900f1-13a6-43b6-b50c-077c33db54bb" />
 
 
 The system includes administrative functionality for managing the banking application.
@@ -286,6 +299,14 @@ ML-related fields include:
 - ml_checked_at
 - ml_model_version
 
+## 10.LOAN 
 
+## <img width="586" height="1516" alt="Loan List_page" src="https://github.com/user-attachments/assets/f0aa1689-e3a0-43d7-8ec4-bdd933b6f8eb" />
 
+## 11. CARD
+## <img width="430" height="1268" alt="Card List_page" src="https://github.com/user-attachments/assets/bfa5bb48-53e4-4bea-acb9-e494a9ac78d0" />
+
+## 12.Employees
+
+## <img width="728" height="1388" alt="Employee List_page" src="https://github.com/user-attachments/assets/72f630e2-b448-42ac-b2f3-1c416893a9be" />
 
