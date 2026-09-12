@@ -1,4 +1,4 @@
-#### Banking Management System with Machine Learning Fraud Detection
+## Banking Management System with Machine Learning Fraud Detection
 
 A full-stack Banking Management System built using Python, Flask, MySQL, HTML/CSS, Bootstrap, and Scikit-Learn, integrated with a Random Forest-based Machine Learning transaction fraud detection system.
 
