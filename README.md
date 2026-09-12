@@ -105,6 +105,8 @@ Whenever a transaction is created, the system:
 ## Key Features & Capabilities
 ##  1. Customer Management
 
+## <img width="386" height="1212" alt="Customer List_page" src="https://github.com/user-attachments/assets/03a847c4-8478-498f-9948-5676cf18d010" />
+
 The Customer Management module allows administrators to:
 
 - Add customers
@@ -117,6 +119,9 @@ The Customer Management module allows administrators to:
 Customer information is stored securely in the MySQL database.
 
 ## 2. Account Management
+
+## <img width="2384" height="1134" alt="Account_Page" src="https://github.com/user-attachments/assets/00a86283-b1bc-4716-9d9a-2f9c104e76bb" />
+
 
 The Account Management module provides:
 
@@ -160,6 +165,9 @@ Supported transaction types include:
 - IMPS
 
 ## 4. Machine Learning Fraud Detection
+
+## <img width="2880" height="1420" alt="Machine_Learning_page" src="https://github.com/user-attachments/assets/45f0dd34-25b8-4bbb-ba69-f79983bb55e2" />
+
 
 The major feature of this project is the integrated Machine Learning fraud detection module.
 
@@ -213,24 +221,7 @@ The trained model is integrated directly into the Flask application for transact
 
 Each analyzed transaction receives a Machine Learning risk score.
 
-Example:
 
-Prediction: Suspicious
-Risk Score: 95.21%
-Risk Level: High
-
-Risk levels are categorized as:
-
-Risk Score	Risk Level
-Below 40%	Low
-40% – 69.99%	Medium
-70% and above	High
-
-The classification threshold used by the system is:
-
-55%
-
-A transaction with a model score below the classification threshold is classified as Normal, while a transaction meeting or exceeding the threshold is classified as Suspicious.
 
 ## 6. ML Analytics Dashboard
 
@@ -238,59 +229,46 @@ The ML Analytics module provides an overview of transaction risk.
 
 It displays:
 
-ML model name
-Model version
-Number of features
-Classification threshold
-Transactions analyzed
-Normal transactions
-Suspicious transactions
-Low-risk transactions
-Medium-risk transactions
-High-risk transactions
-High-risk transaction details
-Recent ML analysis
-
-Example model information:
-
-Model: Random Forest
-Version: v1.0
-Features: 24
-Threshold: 55%
+- ML model name
+- Model version
+- Number of features
+- Classification threshold
+- Transactions analyzed
+- Normal transactions
+- Suspicious transactions
+- Low-risk transactions
+- Medium-risk transactions
+- High-risk transactions
+- High-risk transaction details
+- Recent ML analysis
 
 
 ## 7. Administrative Features
+
+
 
 The system includes administrative functionality for managing the banking application.
 
 Administrative features include:
 
-Admin login
-Session-based access control
-Logout
-Customer management
-Account management
-Transaction management
-Loan management
-Card management
-Employee management
-Activity logs
-Reports
-ML analytics
+- Admin login
+- Session-based access control
+- Logout
+- Customer management
+- Account management
+- Transaction management
+- Loan management
+- Card management
+- Employee management
+- Activity logs
+- Reports
+- ML analytics
 
  ## 8. Activity Logging
 
+ ## <img width="2874" height="1528" alt="Admin_Login_page" src="https://github.com/user-attachments/assets/40c73f06-a86e-40e1-bb22-e1e4f099b91f" />
+
 Important application activities are recorded through the activity logging module.
-
-For example:
-
-Admin created transaction:
-TXN202609031410366806
-Deposit
-₹2,500
-ML: Normal
-Risk: 1.28%
-Risk Level: Low
 
 This provides traceability between banking operations and Machine Learning analysis.
 
@@ -302,32 +280,12 @@ When a transaction is created, the transaction information and ML analysis resul
 
 ML-related fields include:
 
-ml_prediction
-ml_risk_score
-ml_risk_level
-ml_checked_at
-ml_model_version
+- ml_prediction
+- ml_risk_score
+- ml_risk_level
+- ml_checked_at
+- ml_model_version
 
-Example:
 
-Transaction ID     : 67
-Transaction Type   : Deposit
-Amount             : ₹2500.00
-ML Prediction      : Normal
-Risk Score         : 0.01278
-Risk Level         : Low
-Model Version      : v1.0
-
-This demonstrates the complete connection between:
-
-Flask
-  ↓
-MySQL
-  ↓
-Transaction Processing
-  ↓
-Machine Learning
-  ↓
-ML Result Persistence
 
 
