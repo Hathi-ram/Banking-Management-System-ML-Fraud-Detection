@@ -101,6 +101,10 @@ Whenever a transaction is created, the system:
 - Assigns a Low, Medium, or High risk level
 - Stores the ML result in MySQL
 - Displays the result in the dashboard, transactions page, activity logs, and ML analytics
+## Complete End-to-End System Workflow
+
+## <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/9119b1bd-4d98-48bc-8fe5-ee8381bdbace" />
+
 
 ## Key Features & Capabilities
 ##  1. Customer Management
@@ -117,6 +121,28 @@ The Customer Management module allows administrators to:
 - Manage customer-related banking information
 
 Customer information is stored securely in the MySQL database.
+
+## Customer Management Workflow
+Admin Login
+     │
+     ▼
+Customer Management
+     │
+     ├── Add Customer
+     │
+     ├── View Customer
+     │
+     ├── Search Customer
+     │
+     ├── Update Customer
+     │
+     └── Delete Customer
+              │
+              ▼
+        MySQL Customers
+              │
+              ▼
+       Customer ID Created
 
 ## 2. Account Management
 
@@ -223,15 +249,17 @@ Categorical values are converted into numerical features before being passed to 
 The system generates two related outputs.
 
 - Transaction Classification
-ML Score	Classification
-< 55%	Normal
->= 55%	Suspicious
+  
+- ML Score	Classification
+- < 55%	Normal
+- >= 55%	Suspicious
 
 - Risk Level
-Risk Score	Risk Level
-< 40%	Low
-40% – 69.99%	Medium
->= 70%	High
+- 
+- Risk Score	Risk Level
+- < 40%	Low
+- 40% – 69.99%	Medium
+- >= 70%	High
 
 
 
