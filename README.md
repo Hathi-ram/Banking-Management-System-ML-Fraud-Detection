@@ -3,11 +3,9 @@
 A full-stack Banking Management System built using Python, Flask, MySQL, HTML/CSS, Bootstrap, and Scikit-Learn, integrated with a Random Forest-based Machine Learning transaction fraud detection system.
 
 ###  Watch Full Demo Videos
+<video src="C:\Users\Visla\Videos\Captures\1_Files_run_section.mp4" controls width="100%"></video>
 
-[![Banking System Demo]()](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
-*Click the image above to watch the full system walkthrough.*
-
-The application manages the complete banking workflow including:
+## The application manages the complete banking workflow including:
 
 ### <img width="2878" height="1536" alt="HomeScreen_page_1" src="https://github.com/user-attachments/assets/e487790a-4be2-4f6e-b015-0aa02f23eeab" />
 
