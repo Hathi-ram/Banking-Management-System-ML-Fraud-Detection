@@ -107,12 +107,12 @@ Whenever a transaction is created, the system:
 
 The Customer Management module allows administrators to:
 
-Add customers
-View customer details
-Update customer information
-Delete customer records
-Search customers
-Manage customer-related banking information
+- Add customers
+- View customer details
+- Update customer information
+- Delete customer records
+- Search customers
+- Manage customer-related banking information
 
 Customer information is stored securely in the MySQL database.
 
@@ -120,12 +120,12 @@ Customer information is stored securely in the MySQL database.
 
 The Account Management module provides:
 
-Account creation
-Savings and Current account support
-Account balance management
-Account status tracking
-Customer-account relationship management
-Account search and viewing
+- Account creation
+- Savings and Current account support
+- Account balance management
+- Account status tracking
+- Customer-account relationship management
+- Account search and viewing
 
 Each account is linked to its respective customer.
 
@@ -133,54 +133,54 @@ Each account is linked to its respective customer.
 
 The system supports major banking transactions:
 
-Deposit
-
-Allows money to be deposited into a customer account.
+ Deposit
+ 
+- Allows money to be deposited into a customer account.
 
 Withdrawal
 
-Allows money to be withdrawn while checking the available account balance.
+- Allows money to be withdrawn while checking the available account balance.
 
 Transfer
 
-Allows money to be transferred between accounts.
+- Allows money to be transferred between accounts.
 
 Transaction History
 
-All transactions are recorded and can be searched and reviewed.
+- All transactions are recorded and can be searched and reviewed.
 
 Supported transaction types include:
 
-Deposit
-Withdrawal
-Transfer
-UPI
-NEFT
-RTGS
-IMPS
+- Deposit
+- Withdrawal
+- Transfer
+- UPI
+- NEFT
+- RTGS
+- IMPS
 
 ## 4. Machine Learning Fraud Detection
 
 The major feature of this project is the integrated Machine Learning fraud detection module.
 
-Whenever a new transaction is created:
+- Whenever a new transaction is created:
 
-The model analyzes transaction characteristics such as:
+- The model analyzes transaction characteristics such as:
 
-Transaction amount
-Transaction hour
-Day of week
-Day of month
-Month
-Weekend information
-Account average transaction amount
-Account standard deviation
-Account transaction count
-Amount deviation
-Amount-to-average ratio
-Amount z-score
-Transaction type
-Transaction status
+- Transaction amount
+- Transaction hour
+- Day of week
+- Day of month
+- Month
+- Weekend information
+- Account average transaction amount
+- Account standard deviation
+- Account transaction count
+- Amount deviation
+- Amount-to-average ratio
+- Amount z-score
+- Transaction type
+- Transaction status
 
 ## Random Forest Model
 
@@ -188,25 +188,25 @@ The fraud detection module uses a Random Forest Classifier.
 
 The trained model is integrated directly into the Flask application for transaction-level inference.
 
-The ML pipeline contains:
+- The ML pipeline contains:
 
-Raw Transaction Data
+- Raw Transaction Data
         ↓
-Data Preprocessing
+- Data Preprocessing
         ↓
-Feature Engineering
+- Feature Engineering
         ↓
-Numerical Scaling
+- Numerical Scaling
         ↓
-Categorical Encoding
+- Categorical Encoding
         ↓
-Random Forest Classifier
+- Random Forest Classifier
         ↓
-Risk Score
+- Risk Score
         ↓
-Threshold Evaluation
+- Threshold Evaluation
         ↓
-Normal / Suspicious
+- Normal / Suspicious
 
 
 ## 5. Risk Scoring
