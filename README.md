@@ -124,25 +124,20 @@ Customer information is stored securely in the MySQL database.
 
 ## Customer Management Workflow
 Admin Login
-     │
-     ▼
+    │
+    ▼
 Customer Management
-     │
-     ├── Add Customer
-     │
-     ├── View Customer
-     │
-     ├── Search Customer
-     │
-     ├── Update Customer
-     │
-     └── Delete Customer
-              │
-              ▼
-        MySQL Customers
-              │
-              ▼
-       Customer ID Created
+    ├── Add Customer
+    ├── View Customer
+    ├── Search Customer
+    ├── Update Customer
+    └── Delete Customer
+    │
+    ▼
+MySQL Customers
+    │
+    ▼
+Customer ID Created
 
 ## 2. Account Management
 
