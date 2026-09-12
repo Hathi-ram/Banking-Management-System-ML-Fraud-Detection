@@ -75,32 +75,32 @@ The proposed system provides two major capabilities:
 
 The Flask application manages:
 
-Customer information
-Bank accounts
-Deposits
-Withdrawals
-Transfers
-Loans
-Cards
-Employees
-Activity logs
-Reports
-Dashboard analytics
+- Customer information
+- Bank accounts
+- Deposits
+- Withdrawals
+- Transfers
+- Loans
+- Cards
+- Employees
+- Activity logs
+- Reports
+- Dashboard analytics
 
 ## 2. Machine Learning Fraud Detection
 
 Whenever a transaction is created, the system:
 
-Collects transaction information
-Generates transaction features
-Preprocesses the features
-Sends them to the trained Random Forest model
-Generates a fraud probability/risk score
-Applies the classification threshold
-Classifies the transaction as Normal or Suspicious
-Assigns a Low, Medium, or High risk level
-Stores the ML result in MySQL
-Displays the result in the dashboard, transactions page, activity logs, and ML analytics
+- Collects transaction information
+- Generates transaction features
+- Preprocesses the features
+- Sends them to the trained Random Forest model
+- Generates a fraud probability/risk score
+- Applies the classification threshold
+- Classifies the transaction as Normal or Suspicious
+- Assigns a Low, Medium, or High risk level
+- Stores the ML result in MySQL
+- Displays the result in the dashboard, transactions page, activity logs, and ML analytics
 
 ## Key Features & Capabilities
 ##  1. Customer Management
