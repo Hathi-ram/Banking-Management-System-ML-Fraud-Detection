@@ -123,7 +123,6 @@ The Customer Management module allows administrators to:
 Customer information is stored securely in the MySQL database.
 
 ## Customer Management Workflow
-
 Admin Login
      │
      ▼
