@@ -580,3 +580,12 @@ The system uses:
 - Python + Flask + MySQL + Scikit-Learn + Random Forest + Pandas + HTML/CSS + Bootstrap
 
 - The main contribution is the integration of a Machine Learning transaction risk assessment pipeline directly into the banking transaction workflow.
+
+## Author
+
+**Vislavath Hathiram**
+
+B.Tech 
+
+Indian Institute of Information Technology, Design and Manufacturing (IIITDM) Kancheepuram Chennai Tamilnadu
+
